@@ -104,8 +104,9 @@ case "$cmd" in
     while read -r m f rest; do [ -n "$m" ] && partfor "$m" 0 && pending="$pending$m:$f " && echo "Already downloading: $rest"; done <<<"$missing"
     urls=(); for ((k = 0; k < K; k++)); do e="$(nextfile)"; [ -n "$e" ] || break; q+=("$e"); urls+=("$(page $(echo "$e" | cut -d' ' -f1-2))"); done
     [ ${#q[@]} -gt 0 ] || { echo "All $total files downloaded. Next: ultimate/ultimate.sh install"; exit 0; }
+    osascript "$TABS" poll >/dev/null 2>&1 || true   # opening SkyrimMT above brought it forward: not a click
     WIN="$(osascript "$TABS" init "$bounds" "${urls[@]}")"
-    shownAt=$(ms); stalled=0; tick=0; n=1
+    shownAt=$(ms); lastSwitch=$shownAt; stalled=0; tick=0; n=1
     echo "BATCH 1 ready, ${#q[@]} tabs preloaded; showing: ${q[0]}"
     while :; do
       sleep 0.25; tick=$((tick + 1))
