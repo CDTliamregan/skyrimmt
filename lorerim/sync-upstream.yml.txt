@@ -1,0 +1,51 @@
+# Keeps this fork's main branch up to date with HorrorPills/skyrimmt (upstream), once a day and on demand
+# (Actions tab → "Sync with upstream" → Run workflow). Uses GitHub's own "Sync fork" (merge-upstream): when the fork
+# only adds files (lorerim/, this workflow), upstream changes merge cleanly. If a merge can't be done automatically,
+# the workflow opens an issue (label "upstream-sync") instead of guessing. Does nothing in the upstream repository.
+name: Sync with upstream
+
+on:
+  schedule:
+    - cron: "17 9 * * *"   # daily, 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository != 'HorrorPills/skyrimmt'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge upstream into main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -u
+          if out=$(gh api -X POST "repos/$REPO/merge-upstream" -f branch="$BRANCH" 2>&1); then
+            echo "$out"
+            echo "Synced with upstream." >> "$GITHUB_STEP_SUMMARY"
+            echo "$out" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "::warning::upstream sync failed: $out"
+          title="Upstream sync needs a hand"
+          body=$(printf '%s\n\n```\n%s\n```\n\n%s\n' \
+            "The daily sync with [HorrorPills/skyrimmt](https://github.com/HorrorPills/skyrimmt) could not merge automatically (run: $GITHUB_SERVER_URL/$REPO/actions/runs/$GITHUB_RUN_ID)." \
+            "$out" \
+            "Usual causes: upstream changed a file this fork also changed (a merge conflict), or upstream changed a workflow file, which the built-in token may not merge. Fix: on the repository page use **Sync fork → Update branch**, or ask Claude to resolve it.")
+          gh label create upstream-sync --repo "$REPO" --color FBCA04 --description "Upstream sync problems" 2>/dev/null || true
+          existing=$(gh issue list --repo "$REPO" --label upstream-sync --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --repo "$REPO" --body "$body"
+          else
+            gh issue create --repo "$REPO" --title "$title" --label upstream-sync --body "$body"
+          fi
+          exit 1
