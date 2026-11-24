@@ -1,15 +1,18 @@
 # Ultimate Skyrim for SkyrimMT
 
-A ready-made, Mac-friendly mod list for Skyrim Anniversary Edition on SkyrimMT. It favours **stability under
-Wine/DXMT** over sheer size: about 50 well-maintained mods, ~12 GB of downloads, no ENB, no generated LODs, no
-behaviour or body tools to run.
+A ready-made, Mac-friendly **vanilla-plus** mod list for Skyrim Anniversary Edition on SkyrimMT: Skyrim should
+still feel like Skyrim, just fixed, polished and with new lore-friendly places and quests (several picked from
+LoreRim's list). It favours **stability under Wine/DXMT**: 60 files, ~17 GB of downloads, no ENB, no generated LODs,
+no behaviour or body tools to run, and no overhauls of combat, perks or races.
 
 - **Skyrim 1.7.104** (the current Steam build). No downgrade: every SKSE plugin below has a 1.7.104 build
   (checked on Nexus 2026-11-24).
 - **Community Shaders** instead of ENB. SkyrimMT already leaves out its Upscaling feature (needs Direct3D 12).
 - Installed into its **own profile, "Ultimate Skyrim"**, so the other profiles stay as they are.
-- Gameplay is built around Enai Siaion's mods (Adamant, Mysticism, Apocalypse, Summermyst, Thunderchild, Wildcat,
-  Sacrosanct, Imperious, Andromeda), which are designed to work together and are light on scripts.
+- **Alternate Perspective** replaces the cart ride with a voiced, story-driven start: you choose who you are in
+  Helgen before the dragon attack, and each start leads into its own short quest.
+- Core gameplay stays vanilla. New content is added beside it: new lands (Bruma, Wyrmstooth), quests, spells,
+  enchantments and shouts.
 
 ## Install
 
@@ -21,6 +24,8 @@ ultimate/ultimate.sh check     # builds the installer, checks your key and that 
 ultimate/ultimate.sh install   # quits SkyrimMT, downloads, installs, sorts with LOOT, deploys, reopens SkyrimMT
 ```
 
+SkyrimMT.app is found automatically wherever it is installed (set `SKYRIMMT_APP` to override). With Swift 6.2, the build falls back to a patched copy of ModKit (`ultimate/cli/modkit-swift62.patch`); `app/ModKit` stays untouched.
+
 The log is `~/Games/skyrim/logs/ultimate-install.log`. Running `install` again resumes: finished mods are reused.
 
 The installer is SkyrimMT's own collection installer (`app/ModKit/Collections.swift`) fed with a local
@@ -30,12 +35,12 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 ## First start
 
 1. Press Play. The first start compiles Community Shaders' shaders and takes several minutes.
-2. Alternate Start puts you in a cell: talk to the statue to pick a start.
+2. Start a new game and follow Alternate Perspective's prompts to pick who you are in Helgen.
 3. Wait a minute in game while the mods' menus (MCM) register. Settings are under System → Mod Configuration.
 
 ## The list
 
-**Foundation (engine fixes, script extenders, frameworks, menus)**
+**Foundation (fixes, script extenders, frameworks, menus)**
 
 - [SKSE64 (Steam, 1.7.104)](https://www.nexusmods.com/skyrimspecialedition/mods/30379) 2.3.1
 - [Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444) 13
@@ -54,39 +59,50 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [MCM Helper](https://www.nexusmods.com/skyrimspecialedition/mods/53000) 1.6.3
 - [UIExtensions](https://www.nexusmods.com/skyrimspecialedition/mods/17561) 1.2.0
 - [Unofficial Skyrim Special Edition Patch](https://www.nexusmods.com/skyrimspecialedition/mods/266) 4.3.9c
+- [Unofficial Creation Club Content Patches](https://www.nexusmods.com/skyrimspecialedition/mods/18975) 8.5
+- [JContainers SE](https://www.nexusmods.com/skyrimspecialedition/mods/16495) 4.3.4
+- [Fuz Ro D'oh](https://www.nexusmods.com/skyrimspecialedition/mods/15109) 2.6
 
-**Content**
+**New start, quests, lands and world content**
 
 - [Cutting Room Floor](https://www.nexusmods.com/skyrimspecialedition/mods/276) 3.1.26
-- [Alternate Start - Live Another Life](https://www.nexusmods.com/skyrimspecialedition/mods/272) 4.2.6a
 - [Interesting NPCs 3DNPC](https://www.nexusmods.com/skyrimspecialedition/mods/29194) 4.5
 - [Interesting NPCs 4.54 Update](https://www.nexusmods.com/skyrimspecialedition/mods/29194) 4.54
 - [Obscure's College of Winterhold](https://www.nexusmods.com/skyrimspecialedition/mods/20514) 1.6.1
 - [Obscure's College of Winterhold - Script Fix](https://www.nexusmods.com/skyrimspecialedition/mods/62720) 1.0
 - [Immersive Citizens - AI Overhaul AE](https://www.nexusmods.com/skyrimspecialedition/mods/173) 0.4.0.2
+- [Beyond Skyrim - Bruma](https://www.nexusmods.com/skyrimspecialedition/mods/10917) 2.0.1
+- [Wyrmstooth](https://www.nexusmods.com/skyrimspecialedition/mods/45565) 1.20.3
+- [Wyrmstooth - Dragonborn Compatibility Patch](https://www.nexusmods.com/skyrimspecialedition/mods/45565) 1.0.1-dbp
+- [Wyrmstooth - Hearthfire Compatibility Patch](https://www.nexusmods.com/skyrimspecialedition/mods/45565) 1.0.0-hfp
+- [The Forgotten City](https://www.nexusmods.com/skyrimspecialedition/mods/1179) 1.8
+- [Clockwork](https://www.nexusmods.com/skyrimspecialedition/mods/4155) 1.0
+- [The Gray Cowl of Nocturnal](https://www.nexusmods.com/skyrimspecialedition/mods/4509) 1.3
+- [Moon and Star](https://www.nexusmods.com/skyrimspecialedition/mods/4301) 3.2
+- [The Brotherhood of Old](https://www.nexusmods.com/skyrimspecialedition/mods/15322) 2.0.0
+- [Missives](https://www.nexusmods.com/skyrimspecialedition/mods/17576) 2.03
+- [Run For Your Lives](https://www.nexusmods.com/skyrimspecialedition/mods/2272) 4.0.8
+- [Alternate Perspective - Alternate Start](https://www.nexusmods.com/skyrimspecialedition/mods/50307) 4.1.0
+- [Alternate Perspective - Anniversary Edition Bone Wolf Patch](https://www.nexusmods.com/skyrimspecialedition/mods/50307) 2.6
+- [Alternate Perspective - Voiced Addon](https://www.nexusmods.com/skyrimspecialedition/mods/96865) 1.20
 
-**Gameplay**
+**New spells, enchantments and shouts (added, nothing replaced)**
 
-- [Adamant - A Perk Overhaul](https://www.nexusmods.com/skyrimspecialedition/mods/30191) 6.0.4
-- [Mysticism - A Magic Overhaul](https://www.nexusmods.com/skyrimspecialedition/mods/27839) 2.5.0
 - [Apocalypse - Magic of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/1090) 10.3.0
 - [Summermyst - Enchantments of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/6285) 4.2.0
 - [Thunderchild - Epic Shouts and Immersion](https://www.nexusmods.com/skyrimspecialedition/mods/1460) 4.11SSE
-- [Wildcat - Combat of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/1368) 7.1.0
-- [Sacrosanct - Vampires of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/3928) 6.0.0
-- [Imperious - Races of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/1315) 7.28.0
-- [Andromeda - Unique Standing Stones](https://www.nexusmods.com/skyrimspecialedition/mods/14910) 1.1.2
-- [Precision - Accurate Melee Collisions](https://www.nexusmods.com/skyrimspecialedition/mods/72347) 2.0.6
 
 **Visuals**
 
 - [Static Mesh Improvement Mod - SMIM](https://www.nexusmods.com/skyrimspecialedition/mods/659) 2.08
 - [SMIM - Farming Creation Club Patch](https://www.nexusmods.com/skyrimspecialedition/mods/659) 1.0
 - [Skyland AIO](https://www.nexusmods.com/skyrimspecialedition/mods/34179) 4.32
-- [Skyland AIO - Complex Parallax](https://www.nexusmods.com/skyrimspecialedition/mods/34179) 4
 - [Embers XD](https://www.nexusmods.com/skyrimspecialedition/mods/37085) 3.3.0
 - [Cathedral Weathers and Seasons](https://www.nexusmods.com/skyrimspecialedition/mods/24791) 2.23c
 - [A Quality World Map](https://www.nexusmods.com/skyrimspecialedition/mods/5804) 9.0.1
+- [Unique Uniques](https://www.nexusmods.com/skyrimspecialedition/mods/3334) 1.1
+- [Book Covers Skyrim (Original)](https://www.nexusmods.com/skyrimspecialedition/mods/901) 4.2
+- [Lanterns of Skyrim II](https://www.nexusmods.com/skyrimspecialedition/mods/30817) v4.3
 
 **Sound, HUD and quality of life**
 
@@ -97,7 +113,6 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [TrueHUD](https://www.nexusmods.com/skyrimspecialedition/mods/62775) 1.1.10
 - [QuickLoot IE](https://www.nexusmods.com/skyrimspecialedition/mods/120075) 4.1.3
 - [Simple Activate SKSE](https://www.nexusmods.com/skyrimspecialedition/mods/56767) 1.5.0
-- [Better Jumping NG](https://www.nexusmods.com/skyrimspecialedition/mods/18967) 1.9.5
 
 **Renderer**
 
@@ -106,8 +121,10 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 ## Left out on purpose
 
 ENB and ENB-only effects (don't run under Wine), DynDOLOD/xLODGen output and grass caches (long Windows tool runs),
-animation frameworks that need Pandora/Nemesis runs, body/BodySlide mods, and mods without a 1.7.104 build
-(RaceMenu, Scrambled Bugs, Quick Loot RE).
+animation frameworks that need Pandora/Nemesis runs, body/BodySlide mods, mods without a 1.7.104 build
+(RaceMenu, Scrambled Bugs, Quick Loot RE), and overhauls that change how core Skyrim plays (combat, perk, race,
+standing-stone and vampire overhauls, heavy parallax textures), and Helgen Reborn (it clashes with Alternate
+Perspective's Helgen).
 
 ## Changing the list
 

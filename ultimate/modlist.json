@@ -3,7 +3,7 @@
   "name": "Ultimate Skyrim",
   "author": "SkyrimMT fork",
   "gameVersion": "1.7.104",
-  "description": "A stable, Mac-friendly modded Skyrim for SkyrimMT: Community Shaders (no ENB), Enai's gameplay overhauls, Skyland, Interesting NPCs and more. File ids checked on Nexus 2026-11-24.",
+  "description": "Vanilla-plus Skyrim for SkyrimMT: familiar but fresh. Lore-friendly quests and lands, quality-of-life, stability fixes and light visual polish with Community Shaders (no ENB). File ids checked on Nexus 2026-11-24.",
   "installInstructions": "Installed by ultimate/ultimate.sh. Plugins are sorted with LOOT afterwards."
  },
  "mods": [
@@ -212,6 +212,42 @@
    }
   },
   {
+   "name": "Unofficial Creation Club Content Patches",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 18975,
+    "fileId": 784827,
+    "version": "8.5",
+    "fileSize": 48132096
+   }
+  },
+  {
+   "name": "JContainers SE",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 16495,
+    "fileId": 818785,
+    "version": "4.3.4",
+    "fileSize": 841728
+   }
+  },
+  {
+   "name": "Fuz Ro D'oh",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 15109,
+    "fileId": 814513,
+    "version": "2.6",
+    "fileSize": 289792
+   }
+  },
+  {
    "name": "Cutting Room Floor",
    "optional": false,
    "phase": 1,
@@ -221,18 +257,6 @@
     "fileId": 796288,
     "version": "3.1.26",
     "fileSize": 5196800
-   }
-  },
-  {
-   "name": "Alternate Start - Live Another Life",
-   "optional": false,
-   "phase": 1,
-   "source": {
-    "type": "nexus",
-    "modId": 272,
-    "fileId": 729409,
-    "version": "4.2.6a",
-    "fileSize": 5422080
    }
   },
   {
@@ -296,27 +320,171 @@
    }
   },
   {
-   "name": "Adamant - A Perk Overhaul",
+   "name": "Beyond Skyrim - Bruma",
    "optional": false,
-   "phase": 2,
+   "phase": 1,
    "source": {
     "type": "nexus",
-    "modId": 30191,
-    "fileId": 792101,
-    "version": "6.0.4",
-    "fileSize": 235520
+    "modId": 10917,
+    "fileId": 839042,
+    "version": "2.0.1",
+    "fileSize": 3616931840
    }
   },
   {
-   "name": "Mysticism - A Magic Overhaul",
+   "name": "Wyrmstooth",
    "optional": false,
-   "phase": 2,
+   "phase": 1,
    "source": {
     "type": "nexus",
-    "modId": 27839,
-    "fileId": 787777,
-    "version": "2.5.0",
-    "fileSize": 11100160
+    "modId": 45565,
+    "fileId": 670394,
+    "version": "1.20.3",
+    "fileSize": 230179840
+   }
+  },
+  {
+   "name": "Wyrmstooth - Dragonborn Compatibility Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 45565,
+    "fileId": 670699,
+    "version": "1.0.1-dbp",
+    "fileSize": 2048
+   }
+  },
+  {
+   "name": "Wyrmstooth - Hearthfire Compatibility Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 45565,
+    "fileId": 619249,
+    "version": "1.0.0-hfp",
+    "fileSize": 7168
+   }
+  },
+  {
+   "name": "The Forgotten City",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1179,
+    "fileId": 32847,
+    "version": "1.8",
+    "fileSize": 113963008
+   }
+  },
+  {
+   "name": "Clockwork",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4155,
+    "fileId": 7713,
+    "version": "1.0",
+    "fileSize": 304926720
+   }
+  },
+  {
+   "name": "The Gray Cowl of Nocturnal",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4509,
+    "fileId": 18560,
+    "version": "1.3",
+    "fileSize": 202986496
+   }
+  },
+  {
+   "name": "Moon and Star",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4301,
+    "fileId": 9510,
+    "version": "3.2",
+    "fileSize": 57896960
+   }
+  },
+  {
+   "name": "The Brotherhood of Old",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 15322,
+    "fileId": 830724,
+    "version": "2.0.0",
+    "fileSize": 172824576
+   }
+  },
+  {
+   "name": "Missives",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 17576,
+    "fileId": 98093,
+    "version": "2.03",
+    "fileSize": 146432
+   }
+  },
+  {
+   "name": "Run For Your Lives",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 2272,
+    "fileId": 818396,
+    "version": "4.0.8",
+    "fileSize": 99328
+   }
+  },
+  {
+   "name": "Alternate Perspective - Alternate Start",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 50307,
+    "fileId": 696437,
+    "version": "4.1.0",
+    "fileSize": 4880384
+   }
+  },
+  {
+   "name": "Alternate Perspective - Anniversary Edition Bone Wolf Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 50307,
+    "fileId": 252976,
+    "version": "2.6",
+    "fileSize": 3072
+   }
+  },
+  {
+   "name": "Alternate Perspective - Voiced Addon",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 96865,
+    "fileId": 777036,
+    "version": "1.20",
+    "fileSize": 4197376
    }
   },
   {
@@ -356,66 +524,6 @@
    }
   },
   {
-   "name": "Wildcat - Combat of Skyrim",
-   "optional": false,
-   "phase": 2,
-   "source": {
-    "type": "nexus",
-    "modId": 1368,
-    "fileId": 460920,
-    "version": "7.1.0",
-    "fileSize": 262144
-   }
-  },
-  {
-   "name": "Sacrosanct - Vampires of Skyrim",
-   "optional": false,
-   "phase": 2,
-   "source": {
-    "type": "nexus",
-    "modId": 3928,
-    "fileId": 408797,
-    "version": "6.0.0",
-    "fileSize": 20764672
-   }
-  },
-  {
-   "name": "Imperious - Races of Skyrim",
-   "optional": false,
-   "phase": 2,
-   "source": {
-    "type": "nexus",
-    "modId": 1315,
-    "fileId": 228927,
-    "version": "7.28.0",
-    "fileSize": 2791424
-   }
-  },
-  {
-   "name": "Andromeda - Unique Standing Stones",
-   "optional": false,
-   "phase": 2,
-   "source": {
-    "type": "nexus",
-    "modId": 14910,
-    "fileId": 125471,
-    "version": "1.1.2",
-    "fileSize": 1128448
-   }
-  },
-  {
-   "name": "Precision - Accurate Melee Collisions",
-   "optional": false,
-   "phase": 2,
-   "source": {
-    "type": "nexus",
-    "modId": 72347,
-    "fileId": 798533,
-    "version": "2.0.6",
-    "fileSize": 5812224
-   }
-  },
-  {
    "name": "Static Mesh Improvement Mod - SMIM",
    "optional": false,
    "phase": 3,
@@ -452,18 +560,6 @@
    }
   },
   {
-   "name": "Skyland AIO - Complex Parallax",
-   "optional": false,
-   "phase": 3,
-   "source": {
-    "type": "nexus",
-    "modId": 34179,
-    "fileId": 791745,
-    "version": "4",
-    "fileSize": 1092217856
-   }
-  },
-  {
    "name": "Embers XD",
    "optional": false,
    "phase": 3,
@@ -497,6 +593,42 @@
     "fileId": 13792,
     "version": "9.0.1",
     "fileSize": 21683200
+   }
+  },
+  {
+   "name": "Unique Uniques",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 3334,
+    "fileId": 13287,
+    "version": "1.1",
+    "fileSize": 62722048
+   }
+  },
+  {
+   "name": "Book Covers Skyrim (Original)",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 901,
+    "fileId": 40352,
+    "version": "4.2",
+    "fileSize": 486227968
+   }
+  },
+  {
+   "name": "Lanterns of Skyrim II",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 30817,
+    "fileId": 692381,
+    "version": "v4.3",
+    "fileSize": 563517440
    }
   },
   {
@@ -581,18 +713,6 @@
     "fileId": 799011,
     "version": "1.5.0",
     "fileSize": 7383040
-   }
-  },
-  {
-   "name": "Better Jumping NG",
-   "optional": false,
-   "phase": 4,
-   "source": {
-    "type": "nexus",
-    "modId": 18967,
-    "fileId": 808585,
-    "version": "1.9.5",
-    "fileSize": 456704
    }
   },
   {
