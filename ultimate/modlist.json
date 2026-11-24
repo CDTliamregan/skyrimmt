@@ -1,0 +1,613 @@
+{
+ "info": {
+  "name": "Ultimate Skyrim",
+  "author": "SkyrimMT fork",
+  "gameVersion": "1.7.104",
+  "description": "A stable, Mac-friendly modded Skyrim for SkyrimMT: Community Shaders (no ENB), Enai's gameplay overhauls, Skyland, Interesting NPCs and more. File ids checked on Nexus 2026-11-24.",
+  "installInstructions": "Installed by ultimate/ultimate.sh. Plugins are sorted with LOOT afterwards."
+ },
+ "mods": [
+  {
+   "name": "SKSE64 (Steam, 1.7.104)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 30379,
+    "fileId": 795992,
+    "version": "2.3.1",
+    "fileSize": 952320
+   }
+  },
+  {
+   "name": "Address Library for SKSE Plugins",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 32444,
+    "fileId": 795954,
+    "version": "13",
+    "fileSize": 6639616
+   }
+  },
+  {
+   "name": "SSE Engine Fixes (1.7.99+)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17230,
+    "fileId": 794484,
+    "version": "7.0.21",
+    "fileSize": 9511936
+   }
+  },
+  {
+   "name": "SSE Engine Fixes - SKSE64 Preloader",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17230,
+    "fileId": 725261,
+    "version": "7",
+    "fileSize": 24576
+   }
+  },
+  {
+   "name": "Crash Logger SSE AE VR",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 59818,
+    "fileId": 825684,
+    "version": "1.27.0",
+    "fileSize": 7499776
+   }
+  },
+  {
+   "name": "SSE Display Tweaks",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 34705,
+    "fileId": 797175,
+    "version": "0.5.25",
+    "fileSize": 186368
+   }
+  },
+  {
+   "name": "Bug Fixes SSE (1.7.99+)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 33261,
+    "fileId": 795428,
+    "version": "10",
+    "fileSize": 2878464
+   }
+  },
+  {
+   "name": "powerofthree's Tweaks",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 51073,
+    "fileId": 839485,
+    "version": "1.18.0",
+    "fileSize": 8546304
+   }
+  },
+  {
+   "name": "PapyrusUtil AE SE",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 13048,
+    "fileId": 797330,
+    "version": "4.8",
+    "fileSize": 573440
+   }
+  },
+  {
+   "name": "powerofthree's Papyrus Extender",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 22854,
+    "fileId": 800720,
+    "version": "6.5.2",
+    "fileSize": 15268864
+   }
+  },
+  {
+   "name": "Spell Perk Item Distributor",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 36869,
+    "fileId": 795621,
+    "version": "7.3.3",
+    "fileSize": 6390784
+   }
+  },
+  {
+   "name": "Keyword Item Distributor",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 55728,
+    "fileId": 794743,
+    "version": "4.1.0",
+    "fileSize": 10919936
+   }
+  },
+  {
+   "name": "Base Object Swapper",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 60805,
+    "fileId": 794962,
+    "version": "3.5.0",
+    "fileSize": 8960000
+   }
+  },
+  {
+   "name": "SkyUI",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 12604,
+    "fileId": 749043,
+    "version": "6.11",
+    "fileSize": 2693120
+   }
+  },
+  {
+   "name": "MCM Helper",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 53000,
+    "fileId": 795510,
+    "version": "1.6.3",
+    "fileSize": 8186880
+   }
+  },
+  {
+   "name": "UIExtensions",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17561,
+    "fileId": 55628,
+    "version": "1.2.0",
+    "fileSize": 459776
+   }
+  },
+  {
+   "name": "Unofficial Skyrim Special Edition Patch",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 266,
+    "fileId": 800977,
+    "version": "4.3.9c",
+    "fileSize": 182331392
+   }
+  },
+  {
+   "name": "Cutting Room Floor",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 276,
+    "fileId": 796288,
+    "version": "3.1.26",
+    "fileSize": 5196800
+   }
+  },
+  {
+   "name": "Alternate Start - Live Another Life",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 272,
+    "fileId": 729409,
+    "version": "4.2.6a",
+    "fileSize": 5422080
+   }
+  },
+  {
+   "name": "Interesting NPCs 3DNPC",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 29194,
+    "fileId": 308366,
+    "version": "4.5",
+    "fileSize": 2316664832
+   }
+  },
+  {
+   "name": "Interesting NPCs 4.54 Update",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 29194,
+    "fileId": 377786,
+    "version": "4.54",
+    "fileSize": 7835648
+   }
+  },
+  {
+   "name": "Obscure's College of Winterhold",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 20514,
+    "fileId": 134566,
+    "version": "1.6.1",
+    "fileSize": 159945728
+   }
+  },
+  {
+   "name": "Obscure's College of Winterhold - Script Fix",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 62720,
+    "fileId": 260213,
+    "version": "1.0",
+    "fileSize": 1024
+   }
+  },
+  {
+   "name": "Immersive Citizens - AI Overhaul AE",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 173,
+    "fileId": 292849,
+    "version": "0.4.0.2",
+    "fileSize": 1864704
+   }
+  },
+  {
+   "name": "Adamant - A Perk Overhaul",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 30191,
+    "fileId": 792101,
+    "version": "6.0.4",
+    "fileSize": 235520
+   }
+  },
+  {
+   "name": "Mysticism - A Magic Overhaul",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 27839,
+    "fileId": 787777,
+    "version": "2.5.0",
+    "fileSize": 11100160
+   }
+  },
+  {
+   "name": "Apocalypse - Magic of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1090,
+    "fileId": 793875,
+    "version": "10.3.0",
+    "fileSize": 54630400
+   }
+  },
+  {
+   "name": "Summermyst - Enchantments of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 6285,
+    "fileId": 796022,
+    "version": "4.2.0",
+    "fileSize": 2455552
+   }
+  },
+  {
+   "name": "Thunderchild - Epic Shouts and Immersion",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1460,
+    "fileId": 40320,
+    "version": "4.11SSE",
+    "fileSize": 43566080
+   }
+  },
+  {
+   "name": "Wildcat - Combat of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1368,
+    "fileId": 460920,
+    "version": "7.1.0",
+    "fileSize": 262144
+   }
+  },
+  {
+   "name": "Sacrosanct - Vampires of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 3928,
+    "fileId": 408797,
+    "version": "6.0.0",
+    "fileSize": 20764672
+   }
+  },
+  {
+   "name": "Imperious - Races of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1315,
+    "fileId": 228927,
+    "version": "7.28.0",
+    "fileSize": 2791424
+   }
+  },
+  {
+   "name": "Andromeda - Unique Standing Stones",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 14910,
+    "fileId": 125471,
+    "version": "1.1.2",
+    "fileSize": 1128448
+   }
+  },
+  {
+   "name": "Precision - Accurate Melee Collisions",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 72347,
+    "fileId": 798533,
+    "version": "2.0.6",
+    "fileSize": 5812224
+   }
+  },
+  {
+   "name": "Static Mesh Improvement Mod - SMIM",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 659,
+    "fileId": 59069,
+    "version": "2.08",
+    "fileSize": 1057148928
+   }
+  },
+  {
+   "name": "SMIM - Farming Creation Club Patch",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 659,
+    "fileId": 595607,
+    "version": "1.0",
+    "fileSize": 560128
+   }
+  },
+  {
+   "name": "Skyland AIO",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 34179,
+    "fileId": 443514,
+    "version": "4.32",
+    "fileSize": 7005771776
+   }
+  },
+  {
+   "name": "Skyland AIO - Complex Parallax",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 34179,
+    "fileId": 791745,
+    "version": "4",
+    "fileSize": 1092217856
+   }
+  },
+  {
+   "name": "Embers XD",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 37085,
+    "fileId": 821730,
+    "version": "3.3.0",
+    "fileSize": 706454528
+   }
+  },
+  {
+   "name": "Cathedral Weathers and Seasons",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 24791,
+    "fileId": 398809,
+    "version": "2.23c",
+    "fileSize": 103681024
+   }
+  },
+  {
+   "name": "A Quality World Map",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 5804,
+    "fileId": 13792,
+    "version": "9.0.1",
+    "fileSize": 21683200
+   }
+  },
+  {
+   "name": "Audio Overhaul for Skyrim",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 12466,
+    "fileId": 387525,
+    "version": "4.1.3",
+    "fileSize": 268039168
+   }
+  },
+  {
+   "name": "Better Dialogue Controls",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 1429,
+    "fileId": 11022,
+    "version": "1.2",
+    "fileSize": 24576
+   }
+  },
+  {
+   "name": "Better MessageBox Controls",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 1428,
+    "fileId": 11023,
+    "version": "1.2",
+    "fileSize": 17408
+   }
+  },
+  {
+   "name": "moreHUD",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 12688,
+    "fileId": 819872,
+    "version": "5.4.7.0",
+    "fileSize": 4954112
+   }
+  },
+  {
+   "name": "TrueHUD",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 62775,
+    "fileId": 798218,
+    "version": "1.1.10",
+    "fileSize": 4386816
+   }
+  },
+  {
+   "name": "QuickLoot IE",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 120075,
+    "fileId": 806802,
+    "version": "4.1.3",
+    "fileSize": 1204224
+   }
+  },
+  {
+   "name": "Simple Activate SKSE",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 56767,
+    "fileId": 799011,
+    "version": "1.5.0",
+    "fileSize": 7383040
+   }
+  },
+  {
+   "name": "Better Jumping NG",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 18967,
+    "fileId": 808585,
+    "version": "1.9.5",
+    "fileSize": 456704
+   }
+  },
+  {
+   "name": "Community Shaders",
+   "optional": false,
+   "phase": 5,
+   "source": {
+    "type": "nexus",
+    "modId": 86492,
+    "fileId": 810029,
+    "version": "1.9.1",
+    "fileSize": 45143040
+   }
+  }
+ ],
+ "modRules": [],
+ "loadOrder": []
+}

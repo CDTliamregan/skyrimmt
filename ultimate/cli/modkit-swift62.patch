@@ -1,0 +1,15 @@
+--- a/Collections.swift	2026-11-23 23:47:08
++++ b/Collections.swift	2026-11-23 23:47:08
+@@ -326,8 +326,10 @@
+         let newHere = earlierInstall?.profile != profileName   // first install, or moved into another profile
+         let addedTo = newHere ? (into != nil && profile(profileName) != nil) : earlierInstall?.addedToProfile == true
+         // (in a profile shared with other collections, a mod they also list stays theirs: it keeps its place)
+-        let collectionMods = newHere ? [] : Set((earlierInstall?.modIDs ?? []) + (earlierInstall?.reused ?? []))
+-            .subtracting(sharedWith.flatMap { $0.modIDs + ($0.reused ?? []) }).subtracting(earlierInstall?.profileHad ?? [])
++        let earlierIDs: [String] = (earlierInstall?.modIDs ?? []) + (earlierInstall?.reused ?? [])
++        let sharedIDs: [String] = sharedWith.flatMap { (c: InstalledCollection) -> [String] in c.modIDs + (c.reused ?? []) }
++        let profileHadIDs: [String] = earlierInstall?.profileHad ?? []
++        let collectionMods: Set<String> = newHere ? [] : Set(earlierIDs).subtracting(sharedIDs).subtracting(profileHadIDs)
+         let wasOff = Set(newHere ? [] : earlierInstall?.turnedOff ?? [])
+         let extras = (before?.mods ?? []).filter { !collectionMods.contains($0.id) }
+         // another file of a mod the collection ships would be a second copy of it: kept, but off (issue #8)
