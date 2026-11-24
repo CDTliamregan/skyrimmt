@@ -488,6 +488,42 @@
    }
   },
   {
+   "name": "JK's Skyrim",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 6289,
+    "fileId": 189705,
+    "version": "1.7",
+    "fileSize": 11382784
+   }
+  },
+  {
+   "name": "Dawn of Skyrim (Director's Cut)",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 9074,
+    "fileId": 144970,
+    "version": "1.5",
+    "fileSize": 51731456
+   }
+  },
+  {
+   "name": "JK's Skyrim - Dawn of Skyrim - Patch",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 16852,
+    "fileId": 188282,
+    "version": "1.6",
+    "fileSize": 10874880
+   }
+  },
+  {
    "name": "Apocalypse - Magic of Skyrim",
    "optional": false,
    "phase": 2,

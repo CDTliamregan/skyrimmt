@@ -2,7 +2,7 @@
 
 A ready-made, Mac-friendly **vanilla-plus** mod list for Skyrim Anniversary Edition on SkyrimMT: Skyrim should
 still feel like Skyrim, just fixed, polished and with new lore-friendly places and quests (several picked from
-LoreRim's list). It favours **stability under Wine/DXMT**: 60 files, ~17 GB of downloads, no ENB, no generated LODs,
+LoreRim's list). It favours **stability under Wine/DXMT**: 63 files, ~18 GB of downloads, no ENB, no generated LODs,
 no behaviour or body tools to run, and no overhauls of combat, perks or races.
 
 - **Skyrim 1.7.104** (the current Steam build). No downgrade: every SKSE plugin below has a 1.7.104 build
@@ -24,7 +24,7 @@ ultimate/ultimate.sh check     # builds the installer, checks your key and that 
 ultimate/ultimate.sh install   # quits SkyrimMT, downloads, installs, sorts with LOOT, deploys, reopens SkyrimMT
 ```
 
-**Free Nexus account:** run `ultimate/ultimate.sh fetch` before `install`. It makes SkyrimMT the nxm:// handler, opens the pages of the missing files in Chrome five at a time, and waits while you click "Slow download" on each (SkyrimMT downloads it). `install` then installs from the downloads folder.
+**Free Nexus account:** run `ultimate/ultimate.sh fetch` before `install`. It makes SkyrimMT the nxm:// handler, opens the pages of the missing files in Chrome ten at a time, and waits while you click "Slow download" on each (SkyrimMT downloads it). `install` then installs from the downloads folder.
 
 **Partial install:** `ultimate/ultimate.sh install --available` installs only the files already in the downloads folder and leaves out every entry whose requirements are missing (`ultimate/deps.json`); `check --available` prints that plan. Missing plugin masters are reported after the install.
 
@@ -89,6 +89,12 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [Alternate Perspective - Alternate Start](https://www.nexusmods.com/skyrimspecialedition/mods/50307) 4.1.0
 - [Alternate Perspective - Anniversary Edition Bone Wolf Patch](https://www.nexusmods.com/skyrimspecialedition/mods/50307) 2.6
 - [Alternate Perspective - Voiced Addon](https://www.nexusmods.com/skyrimspecialedition/mods/96865) 1.20
+
+**Cities**
+
+- [JK's Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/6289) 1.7
+- [Dawn of Skyrim (Director's Cut)](https://www.nexusmods.com/skyrimspecialedition/mods/9074) 1.5
+- [JK's Skyrim - Dawn of Skyrim - Patch](https://www.nexusmods.com/skyrimspecialedition/mods/16852) 1.6
 
 **New spells, enchantments and shouts (added, nothing replaced)**
 
