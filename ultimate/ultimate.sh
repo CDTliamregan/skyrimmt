@@ -75,54 +75,79 @@ case "$cmd" in
       [ "$handler" = "$APP" ] || { echo "nxm:// links still open in ${handler:-no app}, not SkyrimMT."; exit 1; }
     fi
     open "$APP"; sleep 3
-    # SkyrimMT asks "Install it now?" after every nxm download: answer "Later" automatically, so the click on
-    # "Slow download" is the only thing to do (needs Accessibility access for the app running this script)
-    ( while :; do osascript "$HERE/cli/dismiss-install-prompt.applescript" >/dev/null 2>&1; sleep 0.5; done ) &
-    DISMISS=$!; trap 'kill $DISMISS 2>/dev/null' EXIT
+    # SkyrimMT's "Install it now?" after each download is answered "Later" and SkyrimMT kept hidden by the poll below
+    # (needs Accessibility access for the app running this script), so "Slow download" is the only click
     bounds="${FETCH_BOUNDS:-80,60,1480,1060}"
     total=$(plutil -extract mods raw -o - "$HERE/modlist.json")
     page() { echo "https://www.nexusmods.com/skyrimspecialedition/mods/$1?tab=files&file_id=$2&nmm=1"; }
     missing_now() { "$BIN" "$HERE/modlist.json" --missing; }
-    WIN=""
-    show() {   # load $1 in the fetch window (created on first use), at fixed bounds, in front
-      WIN="$(osascript "$HERE/cli/fetch-window.applescript" "$1" "$bounds" "$WIN")"
-    }
     DL="$GAME/downloads"
-    newpart() { local t="$1" p; for p in "$DL"/*.part; do [ -e "$p" ] && [ "$(stat -f %B "$p")" -ge "$t" ] && return 0; done; return 1; }
-    anypart() { local p; for p in "$DL"/*.part; do [ -e "$p" ] && return 0; done; return 1; }
-    not_pending() {   # stdin "modID fileID name" lines minus those in $pending
-      local m f rest; while read -r m f rest; do [[ " $pending " == *" $m:$f "* ]] || printf '%s\n' "$m $f $rest"; done
-    }
-    pending=""   # " modID:fileID ..." files SkyrimMT is still downloading (a .part appeared after their page was shown)
-    count=0; n=0; idle=0
+    TABS="$HERE/cli/fetch-tabs.applescript"
+    ms() { perl -MTime::HiRes=time -e 'printf "%d", time*1000'; }
+    # a .part for mod $1 begun at or after time $2 (Nexus file names carry the mod id: "Name 12345 1.0 …", "Name-12345-…")
+    partfor() { local p b; for p in "$DL"/*.part; do [ -e "$p" ] || continue; b="$(basename "$p")"
+      [[ "$b" =~ (^|[^0-9])$1([^0-9]|$) ]] && [ "$(stat -f %B "$p")" -ge "$2" ] && return 0; done; return 1; }
+    ismissing() { printf '%s\n' "$missing" | grep "^$1 $2 " >/dev/null; }
+    # One window, PRELOAD (default 5) tabs: the first is shown; the moment a click hands its nxm link to SkyrimMT
+    # (SkyrimMT comes forward), or its download starts or lands, that tab closes, the next (already loaded) tab shows
+    # in the same spot, and one more file is preloaded at the end. A switched-away file that shows no download within
+    # 30 s goes back in the queue.
+    K="${PRELOAD:-5}"
+    q=()          # "modID fileID name" per tab, q[0] shown
+    pending=" "   # " modID:fileID " downloads under way (or just clicked: modID:fileID@ms)
+    inuse() { local e; for e in "${q[@]:-}"; do [ "${e%% *}" = "$1" ] && set -- "$1" "$2" && [ "$(echo "$e" | cut -d' ' -f2)" = "$2" ] && return 0; done
+      [[ "$pending" == *" $1:$2@"* || "$pending" == *" $1:$2 "* ]]; }
+    nextfile() { local m f rest; while read -r m f rest; do [ -n "$m" ] || continue; inuse "$m" "$f" || { echo "$m $f $rest"; return; }; done <<<"$missing"; }
+    missing="$(missing_now)"; left=$(printf '%s' "$missing" | grep -c . || true)
+    echo "$((total - left))/$total downloaded"
+    # downloads already running (a .part carrying the mod id) count as under way
+    while read -r m f rest; do [ -n "$m" ] && partfor "$m" 0 && pending="$pending$m:$f " && echo "Already downloading: $rest"; done <<<"$missing"
+    urls=(); for ((k = 0; k < K; k++)); do e="$(nextfile)"; [ -n "$e" ] || break; q+=("$e"); urls+=("$(page $(echo "$e" | cut -d' ' -f1-2))"); done
+    [ ${#q[@]} -gt 0 ] || { echo "All $total files downloaded. Next: ultimate/ultimate.sh install"; exit 0; }
+    WIN="$(osascript "$TABS" init "$bounds" "${urls[@]}")"
+    shownAt=$(ms); stalled=0; tick=0; n=1
+    echo "BATCH 1 ready, ${#q[@]} tabs preloaded; showing: ${q[0]}"
     while :; do
-      missing="$(missing_now)"
-      left=$(printf '%s' "$missing" | grep -c . || true)
-      # pending files that arrived drop out; with no .part left for 60 s, a pending one failed: show it again
-      kept=""; for p in $pending; do printf '%s\n' "$missing" | grep "^${p%%:*} ${p##*:} " >/dev/null && kept="$kept $p"; done; pending="$kept"
-      if [ -n "$pending" ] && ! anypart; then idle=$((idle + 1)); [ $idle -ge 20 ] && { echo "Download(s) failed, showing again:$pending"; pending=""; idle=0; }; else idle=0; fi
-      todo="$(printf '%s\n' "$missing" | grep . | not_pending)"
-      [ "$left" -gt 0 ] || break
-      if [ -z "$todo" ]; then sleep 3; continue; fi   # only background downloads left
-      echo "$((total - left))/$total downloaded$([ -n "$pending" ] && echo ", downloading:$pending")"
-      if [ $((count % 10)) -eq 0 ]; then
-        n=$((n + 1)); batch="$(printf '%s\n' "$todo" | head -n 10)"
-        echo "BATCH $n ready, $(printf '%s\n' "$batch" | grep -c .) tabs (one at a time):"; printf '%s\n' "$batch" | sed 's/^/  /'
+      sleep 0.25; tick=$((tick + 1))
+      r="$(osascript "$TABS" poll 2>/dev/null || true)"
+      if [ $((tick % 8)) -eq 0 ] || [ "$r" = "done" ]; then
+        missing="$(missing_now)"; left=$(printf '%s' "$missing" | grep -c . || true)
+        # clicked files: confirmed once a .part shows up or the file lands; back in the queue after 30 s without either
+        np=" "; for p in $pending; do key="${p%@*}"; m="${key%%:*}"; f="${key##*:}"
+          ismissing "$m" "$f" || continue
+          if [[ "$p" == *@* ]]; then t="${p##*@}"
+            if partfor "$m" $((t / 1000 - 2)); then np="$np$key "
+            elif [ $(( $(ms) - t )) -lt 30000 ]; then np="$np$p "
+            else echo "No download started for $m/$f after the click; queued again"; fi
+          else np="$np$key "; fi
+        done; pending="$np"
+        [ "$left" -gt 0 ] || break
       fi
-      read -r m f name <<<"$(printf '%s\n' "$todo" | head -n 1)"
-      echo "Showing: $name ($m/$f)"
-      start=$(date +%s); show "$(page "$m" "$f")"; stalled=0; reloaded=0
-      # move on as soon as the click started a download (a new .part) or the file is already complete
-      while missing_now | grep "^$m $f " >/dev/null; do   # (no grep -q: with pipefail its early exit reads as "arrived")
-        if newpart "$start"; then echo "Downloading in background: $name"; pending="$pending $m:$f"; break; fi
-        sleep 2
-        age=$(( $(date +%s) - start ))
-        if [ $stalled -eq 0 ] && [ $age -ge 300 ]; then echo "STALLED (5 min): $m $f $name"; stalled=1; fi
-        if [ $reloaded -eq 0 ] && [ $age -ge 900 ]; then echo "Reloading $name's page after 15 min"; show "$(page "$m" "$f")"; reloaded=1; fi
-      done
-      count=$((count + 1))
+      [ ${#q[@]} -gt 0 ] || { [ "$pending" = " " ] && [ -z "$(nextfile)" ] && [ "$left" -eq 0 ] && break
+        e="$(nextfile)"; [ -n "$e" ] && { q=("$e"); WIN="$(osascript "$TABS" init "$bounds" "$(page $(echo "$e" | cut -d' ' -f1-2))")"; shownAt=$(ms); stalled=0; echo "Showing: $e"; }; continue; }
+      read -r m f name <<<"${q[0]}"
+      why=""
+      if [ "$r" = "click" ]; then why="click"
+      elif partfor "$m" $((shownAt / 1000)); then why="download started"
+      elif ! ismissing "$m" "$f"; then why="arrived"; fi
+      if [ -n "$why" ]; then
+        t0=$(ms)
+        [ "$why" = "arrived" ] || pending="$pending$m:$f@$t0 "
+        q=("${q[@]:1}")
+        e="$(nextfile)"; [ -n "$e" ] && q+=("$e")
+        loading="$(osascript "$TABS" advance "$WIN" "$([ -n "$e" ] && page $(echo "$e" | cut -d' ' -f1-2))")"
+        t1=$(ms)
+        echo "$name: $why → next page in $((t1 - t0)) ms (+ up to 250 ms poll)$([ "$loading" = "true" ] && echo ", page still loading")"
+        [ ${#q[@]} -gt 0 ] && { echo "Showing: ${q[0]}"; shownAt=$t1; stalled=0; reloads=0; }
+        if [ $(( (total - left) / 5 )) -ge $n ] && [ ${#q[@]} -gt 0 ]; then n=$((n + 1)); echo "BATCH $n ready ($((total - left))/$total downloaded)"; fi
+      else
+        age=$(( $(ms) - shownAt ))
+        # watchdog: nothing happened for 20 s (then every 60 s): reload the shown page and bring the window forward
+        if [ $age -ge $(( 20000 + 60000 * ${reloads:-0} )) ]; then osascript "$TABS" refresh "$WIN" >/dev/null 2>&1 || true; reloads=$(( ${reloads:-0} + 1 )); echo "Watchdog: reloaded $name's page"; fi
+        if [ $stalled -eq 0 ] && [ $age -ge 300000 ]; then echo "STALLED (5 min): $m $f $name"; stalled=1; fi
+      fi
     done
-    [ -n "$WIN" ] && osascript -e "tell application \"Google Chrome\" to close window id $WIN" >/dev/null 2>&1 || true
+    osascript "$TABS" close "$WIN" >/dev/null 2>&1 || true
     echo "All $total files downloaded. Next: ultimate/ultimate.sh install" ;;
   *) sed -n 2,8p "$0"; exit 2 ;;
 esac
