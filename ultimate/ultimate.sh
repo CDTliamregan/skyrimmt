@@ -88,10 +88,10 @@ case "$cmd" in
     partfor() { local p b; for p in "$DL"/*.part; do [ -e "$p" ] || continue; b="$(basename "$p")"
       [[ "$b" =~ (^|[^0-9])$1([^0-9]|$) ]] && [ "$(stat -f %B "$p")" -ge "$2" ] && return 0; done; return 1; }
     ismissing() { printf '%s\n' "$missing" | grep "^$1 $2 " >/dev/null; }
-    # One window, PRELOAD (default 5) tabs: the first is shown; the moment a click hands its nxm link to SkyrimMT
-    # (SkyrimMT comes forward), or its download starts or lands, that tab closes, the next (already loaded) tab shows
-    # in the same spot, and one more file is preloaded at the end. A switched-away file that shows no download within
-    # 30 s goes back in the queue.
+    # Batches of PRELOAD (default 5) pages as tabs of one window at a fixed place: the first is shown; the moment a
+    # click hands its nxm link to SkyrimMT (SkyrimMT comes forward), or its download starts or lands, that tab closes
+    # and the next shows in the same spot (signals are ignored for 1 s after a switch). When the whole batch has
+    # started, 3 s pause, then the next batch. A switched-away file with no download within 30 s is queued again.
     K="${PRELOAD:-5}"
     q=()          # "modID fileID name" per tab, q[0] shown
     pending=" "   # " modID:fileID " downloads under way (or just clicked: modID:fileID@ms)
@@ -123,10 +123,16 @@ case "$cmd" in
         done; pending="$np"
         [ "$left" -gt 0 ] || break
       fi
-      [ ${#q[@]} -gt 0 ] || { [ "$pending" = " " ] && [ -z "$(nextfile)" ] && [ "$left" -eq 0 ] && break
-        e="$(nextfile)"; [ -n "$e" ] && { q=("$e"); WIN="$(osascript "$TABS" init "$bounds" "$(page $(echo "$e" | cut -d' ' -f1-2))")"; shownAt=$(ms); stalled=0; echo "Showing: $e"; }; continue; }
+      if [ ${#q[@]} -eq 0 ]; then   # batch done: 3 s pause, then the next batch of K in a fresh window at the same place
+        [ -z "$(nextfile)" ] && { [ "$left" -eq 0 ] && break; continue; }
+        sleep 3; osascript "$TABS" close "$WIN" >/dev/null 2>&1 || true
+        urls=(); for ((k = 0; k < K; k++)); do e="$(nextfile)"; [ -n "$e" ] || break; q+=("$e"); urls+=("$(page $(echo "$e" | cut -d' ' -f1-2))"); done
+        WIN="$(osascript "$TABS" init "$bounds" "${urls[@]}")"; shownAt=$(ms); lastSwitch=$shownAt; stalled=0; reloads=0; n=$((n + 1))
+        echo "BATCH $n ready, ${#q[@]} tabs ($((total - left))/$total downloaded); showing: ${q[0]}"; continue
+      fi
       read -r m f name <<<"${q[0]}"
       why=""
+      [ $(( $(ms) - ${lastSwitch:-0} )) -lt 1000 ] && continue   # 1 s after a switch: ignore (no double click onto the next page)
       if [ "$r" = "click" ]; then why="click"
       elif partfor "$m" $((shownAt / 1000)); then why="download started"
       elif ! ismissing "$m" "$f"; then why="arrived"; fi
@@ -134,12 +140,10 @@ case "$cmd" in
         t0=$(ms)
         [ "$why" = "arrived" ] || pending="$pending$m:$f@$t0 "
         q=("${q[@]:1}")
-        e="$(nextfile)"; [ -n "$e" ] && q+=("$e")
-        loading="$(osascript "$TABS" advance "$WIN" "$([ -n "$e" ] && page $(echo "$e" | cut -d' ' -f1-2))")"
-        t1=$(ms)
+        if [ ${#q[@]} -gt 0 ]; then loading="$(osascript "$TABS" advance "$WIN" "")"; else loading=""; fi
+        t1=$(ms); lastSwitch=$t1
         echo "$name: $why → next page in $((t1 - t0)) ms (+ up to 250 ms poll)$([ "$loading" = "true" ] && echo ", page still loading")"
         [ ${#q[@]} -gt 0 ] && { echo "Showing: ${q[0]}"; shownAt=$t1; stalled=0; reloads=0; }
-        if [ $(( (total - left) / 5 )) -ge $n ] && [ ${#q[@]} -gt 0 ]; then n=$((n + 1)); echo "BATCH $n ready ($((total - left))/$total downloaded)"; fi
       else
         age=$(( $(ms) - shownAt ))
         # watchdog: nothing happened for 20 s (then every 60 s): reload the shown page and bring the window forward
