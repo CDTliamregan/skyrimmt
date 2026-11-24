@@ -75,6 +75,10 @@ case "$cmd" in
       [ "$handler" = "$APP" ] || { echo "nxm:// links still open in ${handler:-no app}, not SkyrimMT."; exit 1; }
     fi
     open "$APP"; sleep 3
+    # SkyrimMT asks "Install it now?" after every nxm download: answer "Later" automatically, so the click on
+    # "Slow download" is the only thing to do (needs Accessibility access for the app running this script)
+    ( while :; do osascript "$HERE/cli/dismiss-install-prompt.applescript" >/dev/null 2>&1; sleep 1; done ) &
+    DISMISS=$!; trap 'kill $DISMISS 2>/dev/null' EXIT
     bounds="${FETCH_BOUNDS:-80,60,1480,1060}"
     total=$(plutil -extract mods raw -o - "$HERE/modlist.json")
     page() { echo "https://www.nexusmods.com/skyrimspecialedition/mods/$1?tab=files&file_id=$2&nmm=1"; }
