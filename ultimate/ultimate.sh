@@ -87,27 +87,39 @@ case "$cmd" in
     show() {   # load $1 in the fetch window (created on first use), at fixed bounds, in front
       WIN="$(osascript "$HERE/cli/fetch-window.applescript" "$1" "$bounds" "$WIN")"
     }
-    count=0; n=0
+    DL="$GAME/downloads"
+    newpart() { local t="$1" p; for p in "$DL"/*.part; do [ -e "$p" ] && [ "$(stat -f %B "$p")" -ge "$t" ] && return 0; done; return 1; }
+    anypart() { local p; for p in "$DL"/*.part; do [ -e "$p" ] && return 0; done; return 1; }
+    not_pending() {   # stdin "modID fileID name" lines minus those in $pending
+      local m f rest; while read -r m f rest; do [[ " $pending " == *" $m:$f "* ]] || printf '%s\n' "$m $f $rest"; done
+    }
+    pending=""   # " modID:fileID ..." files SkyrimMT is still downloading (a .part appeared after their page was shown)
+    count=0; n=0; idle=0
     while :; do
       missing="$(missing_now)"
       left=$(printf '%s' "$missing" | grep -c . || true)
-      echo "$((total - left))/$total downloaded"
+      # pending files that arrived drop out; with no .part left for 60 s, a pending one failed: show it again
+      kept=""; for p in $pending; do printf '%s\n' "$missing" | grep "^${p%%:*} ${p##*:} " >/dev/null && kept="$kept $p"; done; pending="$kept"
+      if [ -n "$pending" ] && ! anypart; then idle=$((idle + 1)); [ $idle -ge 20 ] && { echo "Download(s) failed, showing again:$pending"; pending=""; idle=0; }; else idle=0; fi
+      todo="$(printf '%s\n' "$missing" | grep . | not_pending)"
       [ "$left" -gt 0 ] || break
+      if [ -z "$todo" ]; then sleep 3; continue; fi   # only background downloads left
+      echo "$((total - left))/$total downloaded$([ -n "$pending" ] && echo ", downloading:$pending")"
       if [ $((count % 10)) -eq 0 ]; then
-        n=$((n + 1)); batch="$(printf '%s\n' "$missing" | grep . | head -n 10)"
+        n=$((n + 1)); batch="$(printf '%s\n' "$todo" | head -n 10)"
         echo "BATCH $n ready, $(printf '%s\n' "$batch" | grep -c .) tabs (one at a time):"; printf '%s\n' "$batch" | sed 's/^/  /'
       fi
-      read -r m f name <<<"$(printf '%s\n' "$missing" | head -n 1)"
+      read -r m f name <<<"$(printf '%s\n' "$todo" | head -n 1)"
       echo "Showing: $name ($m/$f)"
-      show "$(page "$m" "$f")"
-      start=$(date +%s); stalled=0; reloaded=0
+      start=$(date +%s); show "$(page "$m" "$f")"; stalled=0; reloaded=0
+      # move on as soon as the click started a download (a new .part) or the file is already complete
       while missing_now | grep "^$m $f " >/dev/null; do   # (no grep -q: with pipefail its early exit reads as "arrived")
-        sleep 3
+        if newpart "$start"; then echo "Downloading in background: $name"; pending="$pending $m:$f"; break; fi
+        sleep 2
         age=$(( $(date +%s) - start ))
         if [ $stalled -eq 0 ] && [ $age -ge 300 ]; then echo "STALLED (5 min): $m $f $name"; stalled=1; fi
         if [ $reloaded -eq 0 ] && [ $age -ge 900 ]; then echo "Reloading $name's page after 15 min"; show "$(page "$m" "$f")"; reloaded=1; fi
       done
-      echo "Arrived: $name"
       count=$((count + 1))
     done
     [ -n "$WIN" ] && osascript -e "tell application \"Google Chrome\" to close window id $WIN" >/dev/null 2>&1 || true
