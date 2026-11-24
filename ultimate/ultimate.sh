@@ -3,7 +3,7 @@
 # into its own profile ("Ultimate Skyrim"). Needs: SkyrimMT set up, a Nexus API key saved in SkyrimMT,
 # Xcode Command Line Tools (swiftc).
 #   ultimate/ultimate.sh check     # builds the installer and checks the files (nothing changes)
-#   ultimate/ultimate.sh fetch     # free Nexus accounts: opens missing files' Nexus pages in Chrome, 10 at a time; you click
+#   ultimate/ultimate.sh fetch     # free Nexus accounts: shows missing files' Nexus pages one at a time in Chrome; you click
 #                                  # "Slow download" on each and SkyrimMT downloads it (nxm:// link)
 #   ultimate/ultimate.sh install [--available]   # --available: only what is already downloaded (see deps.json);
 #                                  # downloads (~18 GB; Premium) or uses the fetched files, installs, sorts with LOOT, deploys
@@ -57,12 +57,14 @@ case "$cmd" in
   fetch)
     # Free Nexus accounts can't download through the API: each file needs a "Slow download" click on its Nexus page,
     # which hands an nxm:// link to SkyrimMT, which downloads it into the downloads folder. Nothing is clicked for you.
-    # Opens FETCH_BATCH (default 10) missing files' pages at a time, in list order, and opens the next batch as soon as
-    # every file of the current one has arrived. A file still missing 5 min after its batch opened is reported
-    # ("STALLED"); its page is reopened once after 15 min. Machine-readable lines: "BATCH n ready, x tabs", "STALLED ...".
+    # One Chrome window at a fixed size and place shows ONE file page at a time, so the "Slow download" button stays
+    # in the same spot: click it, and as soon as the file lands in the downloads folder the window moves on to the
+    # next file. Progress lines: "BATCH n ready, x tabs" every 10 files, "STALLED ..." when a file hasn't arrived
+    # 5 min after its page opened (the page is reloaded once after 15 min). FETCH_BOUNDS="x1,y1,x2,y2" moves the window.
     [ -d "$APP" ] || { echo "SkyrimMT.app not found (set SKYRIMMT_APP=/path/to/SkyrimMT.app)."; exit 1; }
     /usr/libexec/PlistBuddy -c "Print :CFBundleURLTypes" "$APP/Contents/Info.plist" 2>/dev/null | grep -qE '^[[:space:]]*nxm$' \
       || { echo "$APP doesn't declare the nxm:// scheme; it can't take Nexus downloads."; exit 1; }
+    [ -d "/Applications/Google Chrome.app" ] || { echo "fetch needs Google Chrome."; exit 1; }
     NXM="$ROOT/build/nxm-handler"
     if [ ! -x "$NXM" ] || [ "$HERE/cli/nxm-handler.swift" -nt "$NXM" ]; then swiftc -O "$HERE/cli/nxm-handler.swift" -o "$NXM"; fi
     handler="$("$NXM" get 2>/dev/null || true)"
@@ -73,38 +75,38 @@ case "$cmd" in
       [ "$handler" = "$APP" ] || { echo "nxm:// links still open in ${handler:-no app}, not SkyrimMT."; exit 1; }
     fi
     open "$APP"; sleep 3
-    size="${FETCH_BATCH:-10}"
+    bounds="${FETCH_BOUNDS:-80,60,1480,1060}"
     total=$(plutil -extract mods raw -o - "$HERE/modlist.json")
-    browse() { open -a "Google Chrome" "$1" 2>/dev/null || open "$1"; }   # Chrome if installed, else default browser
     page() { echo "https://www.nexusmods.com/skyrimspecialedition/mods/$1?tab=files&file_id=$2&nmm=1"; }
     missing_now() { "$BIN" "$HERE/modlist.json" --missing; }
-    n=0
+    WIN=""
+    show() {   # load $1 in the fetch window (created on first use), at fixed bounds, in front
+      WIN="$(osascript "$HERE/cli/fetch-window.applescript" "$1" "$bounds" "$WIN")"
+    }
+    count=0; n=0
     while :; do
       missing="$(missing_now)"
       left=$(printf '%s' "$missing" | grep -c . || true)
       echo "$((total - left))/$total downloaded"
       [ "$left" -gt 0 ] || break
-      batch="$(printf '%s\n' "$missing" | grep . | head -n "$size")"
-      n=$((n + 1))
-      printf '%s\n' "$batch" | while read -r m f _; do browse "$(page "$m" "$f")"; done
-      echo "BATCH $n ready, $(printf '%s\n' "$batch" | grep -c .) tabs:"; printf '%s\n' "$batch" | sed 's/^/  /'
-      start=$(date +%s); stalled=0; reopened=0
-      while :; do
-        sleep 10
-        now="$(missing_now)"
-        still="$(printf '%s\n' "$batch" | while read -r m f _; do printf '%s\n' "$now" | grep "^$m $f " || true; done)"
-        echo "$((total - $(printf '%s' "$now" | grep -c . || true)))/$total downloaded"
-        [ -n "$still" ] || break
+      if [ $((count % 10)) -eq 0 ]; then
+        n=$((n + 1)); batch="$(printf '%s\n' "$missing" | grep . | head -n 10)"
+        echo "BATCH $n ready, $(printf '%s\n' "$batch" | grep -c .) tabs (one at a time):"; printf '%s\n' "$batch" | sed 's/^/  /'
+      fi
+      read -r m f name <<<"$(printf '%s\n' "$missing" | head -n 1)"
+      echo "Showing: $name ($m/$f)"
+      show "$(page "$m" "$f")"
+      start=$(date +%s); stalled=0; reloaded=0
+      while missing_now | grep "^$m $f " >/dev/null; do   # (no grep -q: with pipefail its early exit reads as "arrived")
+        sleep 3
         age=$(( $(date +%s) - start ))
-        if [ $stalled -eq 0 ] && [ $age -ge 300 ]; then
-          printf '%s\n' "$still" | sed 's/^/STALLED (5 min, batch '"$n"'): /'; stalled=1
-        fi
-        if [ $reopened -eq 0 ] && [ $age -ge 900 ]; then
-          echo "Reopening the pages still missing after 15 min:"
-          printf '%s\n' "$still" | while read -r m f _; do echo "  $m $f"; browse "$(page "$m" "$f")"; done; reopened=1
-        fi
+        if [ $stalled -eq 0 ] && [ $age -ge 300 ]; then echo "STALLED (5 min): $m $f $name"; stalled=1; fi
+        if [ $reloaded -eq 0 ] && [ $age -ge 900 ]; then echo "Reloading $name's page after 15 min"; show "$(page "$m" "$f")"; reloaded=1; fi
       done
+      echo "Arrived: $name"
+      count=$((count + 1))
     done
+    [ -n "$WIN" ] && osascript -e "tell application \"Google Chrome\" to close window id $WIN" >/dev/null 2>&1 || true
     echo "All $total files downloaded. Next: ultimate/ultimate.sh install" ;;
   *) sed -n 2,8p "$0"; exit 2 ;;
 esac
