@@ -1,15 +1,19 @@
 // ultimate-install: installs ultimate/modlist.json (collection.json format) into its own SkyrimMT profile with
 // SkyrimMT's own ModKit (same downloads, FOMOD handling, staging and deploy as a Nexus collection), then sorts the
-// plugins with SkyrimMT's LOOT helper. Built by ultimate/ultimate.sh with swiftc; needs Nexus Premium (API downloads).
-//   ultimate-install <modlist.json> [--dry-run]
+// plugins with SkyrimMT's LOOT helper. Built by ultimate/ultimate.sh with swiftc. Nexus Premium downloads everything
+// itself; a free account installs once every file is in the downloads folder (ultimate.sh fetch: one click per file).
+//   ultimate-install <modlist.json> [--dry-run | --missing]
+//   --missing: no network, no key; prints "modID fileID name" for each file not yet in the downloads folder
 import Foundation
 
 setvbuf(stdout, nil, _IONBF, 0)
 let env = ProcessInfo.processInfo.environment
 let args = CommandLine.arguments
-guard args.count >= 2 else { print("usage: ultimate-install <modlist.json> [--dry-run]"); exit(2) }
+guard args.count >= 2 else { print("usage: ultimate-install <modlist.json> [--dry-run | --missing]"); exit(2) }
 let listURL = URL(fileURLWithPath: args[1])
 let dryRun = args.contains("--dry-run")
+let missingOnly = args.contains("--missing")
+func say(_ s: String) { if !missingOnly { print(s) } }   // --missing prints only the missing-file lines
 let fm = FileManager.default
 // SkyrimMT.app: $SKYRIMMT_APP, else wherever Spotlight finds it (it needn't be in /Applications), else /Applications
 let app: URL = {
@@ -38,14 +42,16 @@ var files: [CollectionFile] = []
 for (i, m) in manifest.mods.enumerated() {
     let src = rawMods[i]["source"] as? [String: Any] ?? [:]
     guard let mid = m.modID, let fid = m.fileID else { fail("\(m.name): no modId/fileId") }
+    // size 0: the list's sizes are rounded to whole KB, and a known size makes existingDownload demand an exact byte
+    // match, so archives downloaded by hand (nxm) would never be recognised. The real size only feeds the total.
     files.append(CollectionFile(modID: mid, fileID: fid, modName: m.name, fileName: m.name, version: src["version"] as? String ?? "",
-                                size: (src["fileSize"] as? NSNumber)?.int64Value ?? 0, optional: false))
+                                size: 0, optional: false))
 }
-let total = files.reduce(Int64(0)) { $0 + $1.size }
+let total = rawMods.reduce(Int64(0)) { $0 + ((($1["source"] as? [String: Any])?["fileSize"] as? NSNumber)?.int64Value ?? 0) }
 let info = CollectionInfo(slug: "ultimate-skyrim", name: manifest.name.isEmpty ? "Ultimate Skyrim" : manifest.name, revision: 1,
                           downloadLink: "", gameVersions: [(raw["info"] as? [String: Any])?["gameVersion"] as? String ?? ""],
                           totalSize: total, files: files)
-print("List: \(info.name), \(files.count) files, \(total / 1_073_741_824) GB to download")
+say("List: \(info.name), \(files.count) files, \(total / 1_073_741_824) GB to download")
 
 // ---- SkyrimMT's game folder
 let gameHome = env["SKYRIMMT_HOME"]
@@ -55,8 +61,18 @@ let home = URL(fileURLWithPath: gameHome)
 guard fm.fileExists(atPath: home.appendingPathComponent("prefix").path) else { fail("no SkyrimMT game folder at \(home.path): run Setup → Set up everything first") }
 let kit = ModKit.standard(home: home)
 guard fm.fileExists(atPath: kit.gameDir.appendingPathComponent("SkyrimSE.exe").path) else { fail("Skyrim isn't installed in \(kit.gameDir.path)") }
-print("Game folder: \(kit.gameDir.path) (version key \(kit.gameVersionKey))")
-print("SkyrimMT app: \(app.path)")
+say("Game folder: \(kit.gameDir.path) (version key \(kit.gameVersionKey))")
+say("SkyrimMT app: \(app.path)")
+
+// ---- files not yet in SkyrimMT's downloads folder (matched by the .meta.json SkyrimMT writes for each download)
+func missingFiles() -> [CollectionFile] {
+    let local = NexusDownloader(client: NexusClient(apiKey: nil, appVersion: "ultimate-1"), folder: kit.home.appendingPathComponent("downloads"))
+    return files.filter { local.existingDownload(modID: $0.modID, fileID: $0.fileID, md5: nil, size: nil) == nil }
+}
+if missingOnly {
+    for f in missingFiles() { print("\(f.modID) \(f.fileID) \(f.modName)") }
+    exit(0)
+}
 
 // ---- Nexus key: env, then SkyrimMT's Keychain helper, then the Keychain directly
 func keyFromHelper() -> String? {
@@ -81,8 +97,22 @@ Task {
     do {
         let user = try await client.validate()
         print("Nexus: \(user.name)\(user.premium ? " (Premium)" : "")")
-        guard user.premium else { print("ERROR: Nexus Premium is needed for unattended downloads"); exitCode = 1; return }
-        if dryRun {
+        if !user.premium {
+            // free account: Nexus allows no API downloads, so every file must already be in the downloads folder
+            let missing = missingFiles()
+            if dryRun {
+                print("Free account: \(files.count - missing.count)/\(files.count) files already downloaded, \(missing.count) missing.")
+                exitCode = missing.isEmpty ? 0 : 4
+                return
+            }
+            if !missing.isEmpty {
+                for f in missing { print("  MISSING \(f.modName) (\(f.modID)/\(f.fileID))") }
+                print("Free account: download these first (ultimate.sh fetch)")
+                exitCode = 4
+                return
+            }
+            print("Free account: all \(files.count) files are in the downloads folder; installing from there.")
+        } else if dryRun {
             // check every pinned file still exists and is downloadable
             var bad = 0
             for f in files {
