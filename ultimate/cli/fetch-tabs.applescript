@@ -25,7 +25,6 @@ on run argv
 				end if
 			end tell
 		end tell
-		if r is not "" then tell application "Google Chrome" to activate
 		return r
 	end if
 	tell application "Google Chrome"
