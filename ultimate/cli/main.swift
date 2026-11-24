@@ -2,17 +2,20 @@
 // SkyrimMT's own ModKit (same downloads, FOMOD handling, staging and deploy as a Nexus collection), then sorts the
 // plugins with SkyrimMT's LOOT helper. Built by ultimate/ultimate.sh with swiftc. Nexus Premium downloads everything
 // itself; a free account installs once every file is in the downloads folder (ultimate.sh fetch: one click per file).
-//   ultimate-install <modlist.json> [--dry-run | --missing]
+//   ultimate-install <modlist.json> [--dry-run | --missing] [--available]
 //   --missing: no network, no key; prints "modID fileID name" for each file not yet in the downloads folder
+//   --available: install only the files already in the downloads folder, leaving out any entry whose requirements
+//                (ultimate/deps.json) are left out; with --dry-run it only prints that plan
 import Foundation
 
 setvbuf(stdout, nil, _IONBF, 0)
 let env = ProcessInfo.processInfo.environment
 let args = CommandLine.arguments
-guard args.count >= 2 else { print("usage: ultimate-install <modlist.json> [--dry-run | --missing]"); exit(2) }
+guard args.count >= 2 else { print("usage: ultimate-install <modlist.json> [--dry-run | --missing] [--available]"); exit(2) }
 let listURL = URL(fileURLWithPath: args[1])
 let dryRun = args.contains("--dry-run")
 let missingOnly = args.contains("--missing")
+let availableOnly = args.contains("--available")
 func say(_ s: String) { if !missingOnly { print(s) } }   // --missing prints only the missing-file lines
 let fm = FileManager.default
 // SkyrimMT.app: $SKYRIMMT_APP, else wherever Spotlight finds it (it needn't be in /Applications), else /Applications
@@ -48,7 +51,7 @@ for (i, m) in manifest.mods.enumerated() {
                                 size: 0, optional: false))
 }
 let total = rawMods.reduce(Int64(0)) { $0 + ((($1["source"] as? [String: Any])?["fileSize"] as? NSNumber)?.int64Value ?? 0) }
-let info = CollectionInfo(slug: "ultimate-skyrim", name: manifest.name.isEmpty ? "Ultimate Skyrim" : manifest.name, revision: 1,
+var info = CollectionInfo(slug: "ultimate-skyrim", name: manifest.name.isEmpty ? "Ultimate Skyrim" : manifest.name, revision: 1,
                           downloadLink: "", gameVersions: [(raw["info"] as? [String: Any])?["gameVersion"] as? String ?? ""],
                           totalSize: total, files: files)
 say("List: \(info.name), \(files.count) files, \(total / 1_073_741_824) GB to download")
@@ -72,6 +75,40 @@ func missingFiles() -> [CollectionFile] {
 if missingOnly {
     for f in missingFiles() { print("\(f.modID) \(f.fileID) \(f.modName)") }
     exit(0)
+}
+
+// ---- --available: only what's downloaded, minus every entry whose requirements are left out (ultimate/deps.json)
+if availableOnly {
+    let depsURL = listURL.deletingLastPathComponent().appendingPathComponent("deps.json")
+    let deps = (try? JSONSerialization.jsonObject(with: Data(contentsOf: depsURL))) as? [String: Any] ?? [:]
+    var needsMods: [Int: [Int]] = [:], needsFiles: [Int: [Int]] = [:]
+    for (k, v) in deps { if let id = Int(k), let l = v as? [Int] { needsMods[id] = l } }
+    for (k, v) in deps["_files"] as? [String: Any] ?? [:] { if let id = Int(k), let l = v as? [Int] { needsFiles[id] = l } }
+    let allFiles = files
+    func label(mod: Int) -> String { allFiles.first { $0.modID == mod }?.modName ?? "mod \(mod)" }
+    func label(file: Int) -> String { allFiles.first { $0.fileID == file }?.modName ?? "file \(file)" }
+    var why: [Int: String] = [:]
+    for f in missingFiles() { why[f.fileID] = "not downloaded" }
+    var keep = Set(allFiles.map(\.fileID)).subtracting(why.keys)
+    var changed = true
+    while changed {
+        changed = false
+        for f in allFiles where keep.contains(f.fileID) {
+            let lackMod = (needsMods[f.modID] ?? []).first { m in m != f.modID && !allFiles.contains { $0.modID == m && keep.contains($0.fileID) } }
+            let lackFile = (needsFiles[f.fileID] ?? []).first { !keep.contains($0) }
+            if let m = lackMod { why[f.fileID] = "needs \(label(mod: m))" } else if let x = lackFile { why[f.fileID] = "needs \(label(file: x))" } else { continue }
+            keep.remove(f.fileID); changed = true
+        }
+    }
+    say("Available: \(keep.count) of \(allFiles.count) files can be installed.")
+    for f in allFiles where !keep.contains(f.fileID) { say("  left out   \(f.modName): \(why[f.fileID] ?? "")") }
+    for f in allFiles where keep.contains(f.fileID) { say("  install    \(f.modName)") }
+    if keep.isEmpty { print("Nothing can be installed yet: every downloaded file needs something that isn't downloaded."); exit(5) }
+    if dryRun { exit(0) }
+    manifest.mods = manifest.mods.filter { $0.fileID.map(keep.contains) ?? false }
+    files = allFiles.filter { keep.contains($0.fileID) }
+    info = CollectionInfo(slug: info.slug, name: info.name, revision: info.revision, downloadLink: info.downloadLink,
+                          gameVersions: info.gameVersions, totalSize: info.totalSize, files: files)
 }
 
 // ---- Nexus key: env, then SkyrimMT's Keychain helper, then the Keychain directly
@@ -145,8 +182,12 @@ Task {
             print("LOOT: sorted \(r.sorted.count) plugins, moved \(r.moved)")
         } catch { print("WARNING: LOOT sort failed (\(error)); sort once in SkyrimMT → Plugins → Sort") }
         try kit.deploy()
+        let masters = kit.missingMasters()
+        for m in masters { print("MISSING MASTER \(m.master), needed by \(m.neededBy.joined(separator: ", "))") }
+        if !masters.isEmpty { exitCode = 3 }
         let failed = kit.installedCollections().first { $0.slug == info.slug }?.failed ?? []
-        if failed.isEmpty { print("ALL DONE: open SkyrimMT and press Play.") }
+        if failed.isEmpty && masters.isEmpty { print("ALL DONE: open SkyrimMT and press Play.") }
+        else if failed.isEmpty { print("DONE, BUT PLUGINS ARE MISSING MASTERS (above)") }
         else { print("DONE WITH \(failed.count) FAILED: \(failed.joined(separator: ", "))"); exitCode = 3 }
     } catch {
         print("ERROR: \(error)"); exitCode = 1

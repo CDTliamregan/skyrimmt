@@ -5,13 +5,14 @@
 #   ultimate/ultimate.sh check     # builds the installer and checks the files (nothing changes)
 #   ultimate/ultimate.sh fetch     # free Nexus accounts: opens each missing file's page in Chrome, 5 at a time; you click
 #                                  # "Slow download" on each and SkyrimMT downloads it (nxm:// link)
-#   ultimate/ultimate.sh install   # downloads (~18 GB; Premium) or uses the fetched files, installs, sorts with LOOT, deploys
+#   ultimate/ultimate.sh install [--available]   # --available: only what is already downloaded (see deps.json);
+#                                  # downloads (~18 GB; Premium) or uses the fetched files, installs, sorts with LOOT, deploys
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"; ROOT="$(cd "$HERE/.." && pwd)"
 GAME="${SKYRIMMT_HOME:-$HOME/Games/skyrim}"
 BIN="$ROOT/build/ultimate-install"
 LOG="$GAME/logs/ultimate-install.log"
-cmd="${1:-install}"
+cmd="${1:-install}"; shift || true   # remaining args (e.g. --available) go to the installer
 # SkyrimMT.app: $SKYRIMMT_APP, else wherever Spotlight finds it, else /Applications
 APP="${SKYRIMMT_APP:-}"
 if [ -z "$APP" ]; then
@@ -38,7 +39,7 @@ if [ ! -x "$BIN" ] || [ -n "$(find "$ROOT/app/ModKit" "$HERE/cli" -newer "$BIN" 
 fi
 
 case "$cmd" in
-  check) exec "$BIN" "$HERE/modlist.json" --dry-run ;;
+  check) exec "$BIN" "$HERE/modlist.json" --dry-run "$@" ;;
   install)
     # SkyrimMT and the game must be closed while the installer changes the mod folders
     if pgrep -x SkyrimSE.exe >/dev/null || pgrep -f "SkyrimSE.exe" >/dev/null; then echo "Quit Skyrim first."; exit 1; fi
@@ -48,7 +49,7 @@ case "$cmd" in
     [ "${free_gb:-0}" -ge 40 ] || { echo "Need at least 40 GB free on the disk with $GAME (have ${free_gb} GB)."; exit 1; }
     echo "Installing Ultimate Skyrim (log: $LOG)"
     set +e
-    "$BIN" "$HERE/modlist.json" 2>&1 | tee "$LOG"
+    "$BIN" "$HERE/modlist.json" "$@" 2>&1 | tee "$LOG"
     rc=${PIPESTATUS[0]}
     set -e
     [ $rc -eq 0 ] && open "$APP" 2>/dev/null || true

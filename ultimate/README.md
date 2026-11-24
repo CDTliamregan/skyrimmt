@@ -26,6 +26,8 @@ ultimate/ultimate.sh install   # quits SkyrimMT, downloads, installs, sorts with
 
 **Free Nexus account:** run `ultimate/ultimate.sh fetch` before `install`. It makes SkyrimMT the nxm:// handler, opens the pages of the missing files in Chrome five at a time, and waits while you click "Slow download" on each (SkyrimMT downloads it). `install` then installs from the downloads folder.
 
+**Partial install:** `ultimate/ultimate.sh install --available` installs only the files already in the downloads folder and leaves out every entry whose requirements are missing (`ultimate/deps.json`); `check --available` prints that plan. Missing plugin masters are reported after the install.
+
 SkyrimMT.app is found automatically wherever it is installed (set `SKYRIMMT_APP` to override). With Swift 6.2, the build falls back to a patched copy of ModKit (`ultimate/cli/modkit-swift62.patch`); `app/ModKit` stays untouched.
 
 The log is `~/Games/skyrim/logs/ultimate-install.log`. Running `install` again resumes: finished mods are reused.
