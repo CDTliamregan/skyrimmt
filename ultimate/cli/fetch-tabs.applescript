@@ -6,6 +6,7 @@
 --                                       hand-off ("click": SkyrimMT came forward without that prompt); hides SkyrimMT
 on run argv
 	set cmd to item 1 of argv
+	set quiet to ((system attribute "FETCH_QUIET") is "1")
 	if cmd is "poll" then
 		set r to ""
 		tell application "System Events"
@@ -19,7 +20,7 @@ on run argv
 						end if
 					end try
 				end repeat
-				if visible then
+				if visible and not quiet then
 					set visible to false
 					if r is "" then set r to "click"
 				end if
@@ -39,8 +40,10 @@ on run argv
 				make new tab at end of tabs of w with properties {URL:item k of argv}
 			end repeat
 			set active tab index of w to 1
-			set index of w to 1
-			activate
+			if not quiet then
+				set index of w to 1
+				activate
+			end if
 			return (id of w) as text
 		else if cmd is "advance" then
 			set w to window id ((item 2 of argv) as integer)
@@ -54,15 +57,19 @@ on run argv
 					set active tab index of w to 1
 				end if
 			end if
-			set index of w to 1
-			activate
+			if not quiet then
+				set index of w to 1
+				activate
+			end if
 			return (loading of tab 1 of w) as text
 		else if cmd is "refresh" then
 			set w to window id ((item 2 of argv) as integer)
 			set active tab index of w to 1
 			tell tab 1 of w to reload
-			set index of w to 1
-			activate
+			if not quiet then
+				set index of w to 1
+				activate
+			end if
 			return ""
 		else if cmd is "close" then
 			try

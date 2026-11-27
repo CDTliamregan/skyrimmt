@@ -126,7 +126,8 @@ print(" ".join("%d:%d:%d" % (m["source"]["modId"], m["source"]["fileId"], m["sou
     n=0; WIN=""; tick=0; held=0
     while :; do
       sleep 2; tick=$((tick + 1)); r=""
-      [ $((tick % 2)) -eq 0 ] && r="$(osascript "$TABS" poll 2>/dev/null || true)"
+      # FETCH_QUIET=1: never brings Chrome forward or hides SkyrimMT; prompts answered every FETCH_POLL_TICKS×2 s
+      [ $((tick % ${FETCH_POLL_TICKS:-2})) -eq 0 ] && r="$(osascript "$TABS" poll 2>/dev/null || true)"
       missing="$(missing_now)"; left=$(printf '%s' "$missing" | grep -c . || true)
       np=" "; for p in $pending; do key="${p%@*}"; m="${key%%:*}"; f="${key##*:}"
         ismissing "$m" "$f" || continue
