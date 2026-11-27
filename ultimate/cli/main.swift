@@ -182,6 +182,18 @@ Task {
             print("LOOT: sorted \(r.sorted.count) plugins, moved \(r.moved)")
         } catch { print("WARNING: LOOT sort failed (\(error)); sort once in SkyrimMT → Plugins → Sort") }
         try kit.deploy()
+        // entries marked "enabled": false (graphics add-ons to be tried one at a time) stay installed but switched off
+        let off = Set(rawMods.filter { ($0["enabled"] as? Bool) == false }.compactMap { m -> String? in
+            guard let src = m["source"] as? [String: Any], let mid = (src["modId"] as? NSNumber)?.intValue,
+                  let fid = (src["fileId"] as? NSNumber)?.intValue else { return nil }
+            return "\(mid):\(fid)"
+        })
+        if !off.isEmpty, var prof = kit.profile(profile) {
+            let ids = Set(kit.mods.filter { r in r.nexus.map { off.contains("\($0.modID):\($0.fileID ?? -1)") } ?? false }.map(\.id))
+            var n = 0
+            for i in prof.mods.indices where ids.contains(prof.mods[i].id) && prof.mods[i].enabled { prof.mods[i].enabled = false; n += 1 }
+            if n > 0 { try kit.saveProfile(prof); try kit.deploy(prof); print("Left \(n) add-on(s) installed but disabled (enable them one at a time)") }
+        }
         let masters = kit.missingMasters()
         for m in masters { print("MISSING MASTER \(m.master), needed by \(m.neededBy.joined(separator: ", "))") }
         if !masters.isEmpty { exitCode = 3 }

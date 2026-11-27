@@ -2,7 +2,7 @@
 
 A ready-made, Mac-friendly **vanilla-plus** mod list for Skyrim Anniversary Edition on SkyrimMT: Skyrim should
 still feel like Skyrim, just fixed, polished and with new lore-friendly places and quests (several picked from
-LoreRim's list). It favours **stability under Wine/DXMT**: 63 files, ~18 GB of downloads, no ENB, no generated LODs,
+LoreRim's list). It favours **stability under Wine/DXMT**: 75 files, ~18 GB of downloads, no ENB, no generated LODs,
 no behaviour or body tools to run, and no overhauls of combat, perks or races.
 
 - **Skyrim 1.7.104** (the current Steam build). No downgrade: every SKSE plugin below has a 1.7.104 build
@@ -102,6 +102,20 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [Summermyst - Enchantments of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/6285) 4.2.0
 - [Thunderchild - Epic Shouts and Immersion](https://www.nexusmods.com/skyrimspecialedition/mods/1460) 4.11SSE
 
+**Gameplay (added Nov 26, 2026)**
+
+- [Ordinator - Perks of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/1137) 9.35.0
+- [Odin - Skyrim Magic Overhaul](https://www.nexusmods.com/skyrimspecialedition/mods/46000) 3.2.0 (+ Odin - Ordinator Compatibility Patch)
+- [True Directional Movement](https://www.nexusmods.com/skyrimspecialedition/mods/51614) 2.3.1
+- [Precision](https://www.nexusmods.com/skyrimspecialedition/mods/72347) 2.0.6
+- [Open Animation Replacer](https://www.nexusmods.com/skyrimspecialedition/mods/92109) 3.2.1
+- [Valhalla Combat - 1.7.104 update](https://www.nexusmods.com/skyrimspecialedition/mods/191704) 1.1 (unofficial update of dTry's Valhalla Combat)
+- [Better Jumping NG](https://www.nexusmods.com/skyrimspecialedition/mods/18967) 1.9.5
+- [Mortal Enemies SE](https://www.nexusmods.com/skyrimspecialedition/mods/4881) 1.05
+- [Pristine Vanilla Movement](https://www.nexusmods.com/skyrimspecialedition/mods/66635) 1.1 (OAR)
+
+MCO was left out: its required Animation Motion Revolution has only unofficial 1.7.104 ports.
+
 **Visuals**
 
 - [Static Mesh Improvement Mod - SMIM](https://www.nexusmods.com/skyrimspecialedition/mods/659) 2.08
@@ -127,6 +141,11 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 **Renderer**
 
 - [Community Shaders](https://www.nexusmods.com/skyrimspecialedition/mods/86492) 1.9.1
+- [Terrain Shadows - Heightmaps](https://www.nexusmods.com/skyrimspecialedition/mods/135817) 1.0.0 (installed disabled)
+- [Wetness Effects - Community Shaders](https://www.nexusmods.com/skyrimspecialedition/mods/112739) 3.1.0 (installed disabled)
+
+Entries with `"enabled": false` are installed but left off, to be enabled and tested one at a time. Grass Lighting,
+Cloud Shadows and Terrain Shadows are built into Community Shaders 1.9.1; Tree LOD Lighting has no build for it.
 
 ## Left out on purpose
 

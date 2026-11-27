@@ -560,6 +560,126 @@
    }
   },
   {
+   "name": "Ordinator - Perks of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1137,
+    "fileId": 675234,
+    "version": "9.35.0",
+    "fileSize": 11496448
+   }
+  },
+  {
+   "name": "Odin - Skyrim Magic Overhaul",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 46000,
+    "fileId": 793864,
+    "version": "3.2.0",
+    "fileSize": 32304128
+   }
+  },
+  {
+   "name": "True Directional Movement",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 51614,
+    "fileId": 798770,
+    "version": "2.3.1",
+    "fileSize": 5210112
+   }
+  },
+  {
+   "name": "Precision",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 72347,
+    "fileId": 798533,
+    "version": "2.0.6",
+    "fileSize": 5812224
+   }
+  },
+  {
+   "name": "Open Animation Replacer",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 92109,
+    "fileId": 798222,
+    "version": "3.2.1",
+    "fileSize": 8288256
+   }
+  },
+  {
+   "name": "Odin - Ordinator Compatibility Patch",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 46000,
+    "fileId": 658698,
+    "version": "3.0.0",
+    "fileSize": 2048
+   }
+  },
+  {
+   "name": "Valhalla Combat (1.7.104 update)",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 191704,
+    "fileId": 806722,
+    "version": "1.1",
+    "fileSize": 10929152
+   }
+  },
+  {
+   "name": "Better Jumping NG",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 18967,
+    "fileId": 808585,
+    "version": "1.9.5",
+    "fileSize": 456704
+   }
+  },
+  {
+   "name": "Mortal Enemies SE",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 4881,
+    "fileId": 11006,
+    "version": "1.05",
+    "fileSize": 12288
+   }
+  },
+  {
+   "name": "Pristine Vanilla Movement",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 66635,
+    "fileId": 279306,
+    "version": "1.1",
+    "fileSize": 368640
+   }
+  },
+  {
    "name": "Static Mesh Improvement Mod - SMIM",
    "optional": false,
    "phase": 3,
@@ -762,6 +882,32 @@
     "version": "1.9.1",
     "fileSize": 45143040
    }
+  },
+  {
+   "name": "Terrain Shadows - Heightmaps",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "nexus",
+    "modId": 135817,
+    "fileId": 570012,
+    "version": "1.0.0",
+    "fileSize": 14580736
+   },
+   "enabled": false
+  },
+  {
+   "name": "Wetness Effects - Community Shaders",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "nexus",
+    "modId": 112739,
+    "fileId": 747765,
+    "version": "3.1.0",
+    "fileSize": 5120
+   },
+   "enabled": false
   }
  ],
  "modRules": [],
