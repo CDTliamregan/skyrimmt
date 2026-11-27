@@ -1136,6 +1136,17 @@
     "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Effects11-2026-09-24T12-32Z.zip",
     "version": "1.9.1"
    }
+  },
+  {
+   "name": "Community Shaders - Upscaling",
+   "optional": false,
+   "phase": 6,
+   "enabled": false,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Upscaling-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
   }
  ],
  "modRules": [],
