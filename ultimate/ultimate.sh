@@ -136,7 +136,7 @@ print(" ".join("%d:%d:%d" % (m["source"]["modId"], m["source"]["fileId"], m["sou
       if [ "$left" -eq 0 ]; then break; fi
       if [ ${#q[@]} -eq 0 ]; then
         [ -n "$(nextfile)" ] || continue
-        if [ "$(bigrunning)" -ge 3 ]; then [ $held -eq 0 ] && echo "Holding the next batch: 3+ big downloads running"; held=1; continue; fi
+        if [ "$(bigrunning)" -ge "${FETCH_HOLD:-3}" ]; then [ $held -eq 0 ] && echo "Holding the next batch: 3+ big downloads running"; held=1; continue; fi
         held=0; sleep 3; newbatch; continue
       fi
       [ $(( $(ms) - lastSwitch )) -lt 1000 ] && continue
