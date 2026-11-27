@@ -44,6 +44,7 @@ let rawMods = raw["mods"] as? [[String: Any]] ?? []
 var files: [CollectionFile] = []
 for (i, m) in manifest.mods.enumerated() {
     let src = rawMods[i]["source"] as? [String: Any] ?? [:]
+    if m.sourceType == "bundle" { continue }   // official files fetched by URL (below), not from Nexus
     guard let mid = m.modID, let fid = m.fileID else { fail("\(m.name): no modId/fileId") }
     // size 0: the list's sizes are rounded to whole KB, and a known size makes existingDownload demand an exact byte
     // match, so archives downloaded by hand (nxm) would never be recognised. The real size only feeds the total.
@@ -65,6 +66,34 @@ guard fm.fileExists(atPath: home.appendingPathComponent("prefix").path) else { f
 let kit = ModKit.standard(home: home)
 guard fm.fileExists(atPath: kit.gameDir.appendingPathComponent("SkyrimSE.exe").path) else { fail("Skyrim isn't installed in \(kit.gameDir.path)") }
 say("Game folder: \(kit.gameDir.path) (version key \(kit.gameVersionKey))")
+
+// ---- "bundle" entries: official archives from a fixed URL (e.g. a mod's GitHub release), unpacked into a bundle
+// folder that ModKit's collection installer installs from (bundled/<entry name>), so no Nexus download is needed
+let bundleDir = home.appendingPathComponent("cache/ultimate-bundle")
+func prepareBundles() -> [String] {
+    var failed: [String] = []
+    for m in manifest.mods where m.sourceType == "bundle" {
+        let out = bundleDir.appendingPathComponent("bundled/\(m.name)")
+        if fm.fileExists(atPath: out.path) { continue }
+        guard let s = m.url, let u = URL(string: s) else { failed.append("\(m.name): no url"); continue }
+        let arch = bundleDir.appendingPathComponent("archives/\(u.lastPathComponent)")
+        try? fm.createDirectory(at: arch.deletingLastPathComponent(), withIntermediateDirectories: true)
+        func run(_ a: [String]) -> Bool { let p = Process(); p.executableURL = URL(fileURLWithPath: a[0]); p.arguments = Array(a.dropFirst())
+            p.standardOutput = FileHandle.nullDevice; p.standardError = FileHandle.nullDevice
+            return (try? p.run()) != nil && { p.waitUntilExit(); return p.terminationStatus == 0 }() }
+        if !fm.fileExists(atPath: arch.path) && !run(["/usr/bin/curl", "-sfL", "--max-time", "600", "-o", arch.path, s]) {
+            try? fm.removeItem(at: arch); failed.append("\(m.name): download failed"); continue }
+        let tmp = out.appendingPathExtension("tmp"); try? fm.removeItem(at: tmp)
+        try? fm.createDirectory(at: tmp, withIntermediateDirectories: true)
+        if run(["/usr/bin/bsdtar", "-xf", arch.path, "-C", tmp.path]) { try? fm.moveItem(at: tmp, to: out) }
+        else { try? fm.removeItem(at: tmp); try? fm.removeItem(at: arch); failed.append("\(m.name): couldn't unpack") }
+    }
+    try? fm.createDirectory(at: bundleDir, withIntermediateDirectories: true)
+    try? fm.removeItem(at: bundleDir.appendingPathComponent("collection.json"))
+    try? fm.copyItem(at: listURL, to: bundleDir.appendingPathComponent("collection.json"))
+    manifest.bundleDir = bundleDir
+    return failed
+}
 say("SkyrimMT app: \(app.path)")
 
 // ---- files not yet in SkyrimMT's downloads folder (matched by the .meta.json SkyrimMT writes for each download)
@@ -160,6 +189,7 @@ Task {
             exitCode = bad == 0 ? 0 : 1
             return
         }
+        for f in prepareBundles() { print("  SKIPPED     \(f)") }
         let items = manifest.mods
         let started = Date()
         let profile = try await kit.installCollection(info: info, manifest: manifest, items: items, client: client, gameVersion: "",
@@ -188,8 +218,9 @@ Task {
                   let fid = (src["fileId"] as? NSNumber)?.intValue else { return nil }
             return "\(mid):\(fid)"
         })
-        if !off.isEmpty, var prof = kit.profile(profile) {
-            let ids = Set(kit.mods.filter { r in r.nexus.map { off.contains("\($0.modID):\($0.fileID ?? -1)") } ?? false }.map(\.id))
+        let offNames = Set(rawMods.filter { ($0["enabled"] as? Bool) == false }.compactMap { $0["name"] as? String })
+        if !(off.isEmpty && offNames.isEmpty), var prof = kit.profile(profile) {
+            let ids = Set(kit.mods.filter { r in (r.nexus.map { off.contains("\($0.modID):\($0.fileID ?? -1)") } ?? false) || (r.nexus == nil && offNames.contains(r.name)) }.map(\.id))
             var n = 0
             for i in prof.mods.indices where ids.contains(prof.mods[i].id) && prof.mods[i].enabled { prof.mods[i].enabled = false; n += 1 }
             if n > 0 { try kit.saveProfile(prof); try kit.deploy(prof); print("Left \(n) add-on(s) installed but disabled (enable them one at a time)") }

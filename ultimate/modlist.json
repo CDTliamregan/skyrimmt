@@ -1025,21 +1025,117 @@
     "fileId": 570012,
     "version": "1.0.0",
     "fileSize": 14580736
-   },
-   "enabled": false
+   }
   },
   {
-   "name": "Wetness Effects - Community Shaders",
+   "name": "Community Shaders - Screen Space GI",
    "optional": false,
    "phase": 6,
    "source": {
-    "type": "nexus",
-    "modId": 112739,
-    "fileId": 747765,
-    "version": "3.1.0",
-    "fileSize": 5120
-   },
-   "enabled": false
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Screen.Space.GI-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Skylighting",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Skylighting-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Wetness Effects",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Wetness.Effects-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Grass Optimizations",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Grass.Optimizations-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Blending",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Blending-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Helper",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Helper-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Variation",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Variation-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Hair Specular",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Hair.Specular-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Exponential Height Fog",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Exponential.Height.Fog-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Linear Lighting",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Linear.Lighting-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Effects11",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Effects11-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
   }
  ],
  "modRules": [],
