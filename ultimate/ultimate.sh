@@ -105,10 +105,14 @@ print(" ".join("%d:%d:%d" % (m["source"]["modId"], m["source"]["fileId"], m["sou
     inuse() { local e; for e in "${q[@]:-}"; do [ "$(echo "$e" | cut -d' ' -f1-2)" = "$1 $2" ] && return 0; done
       [[ "$pending" == *" $1:$2@"* || "$pending" == *" $1:$2 "* ]]; }
     nextfile() { local m f rest; while read -r m f rest; do [ -n "$m" ] || continue; inuse "$m" "$f" || { echo "$m $f $rest"; return; }; done <<<"$missing"; }
+    running() { local c=0 p key; for p in $pending; do key="${p%@*}"; growing "${key%%:*}" 30 && c=$((c + 1)); done; echo $c; }
+    # FETCH_MAXDL: most downloads at once (free Nexus accounts seem to get ~3; more just stall). 0 = no limit.
+    MAXDL="${FETCH_MAXDL:-0}"
     bigrunning() { local c=0 p key; for p in $pending; do key="${p%@*}"; [ "$(sizeof "${key%%:*}" "${key##*:}")" -gt 524288000 ] && growing "${key%%:*}" && c=$((c + 1)); done; echo $c; }
     newbatch() {
       q=(); local urls=() e k
-      for ((k = 0; k < K; k++)); do e="$(nextfile)"; [ -n "$e" ] || break; q+=("$e"); urls+=("$(page $(echo "$e" | cut -d' ' -f1-2))"); done
+      local lim=$K; if [ "$MAXDL" -gt 0 ]; then lim=$(( MAXDL - $(running) )); [ $lim -gt $K ] && lim=$K; fi
+      for ((k = 0; k < lim; k++)); do e="$(nextfile)"; [ -n "$e" ] || break; q+=("$e"); urls+=("$(page $(echo "$e" | cut -d' ' -f1-2))"); done
       [ ${#q[@]} -gt 0 ] || return 1
       [ -n "${WIN:-}" ] && osascript "$TABS" close "$WIN" >/dev/null 2>&1
       WIN="$(osascript "$TABS" init "$bounds" "${urls[@]}")"; shownAt=$(ms); lastSwitch=$shownAt; stalled=0; reloads=0; n=$((n + 1))
@@ -136,7 +140,7 @@ print(" ".join("%d:%d:%d" % (m["source"]["modId"], m["source"]["fileId"], m["sou
       if [ "$left" -eq 0 ]; then break; fi
       if [ ${#q[@]} -eq 0 ]; then
         [ -n "$(nextfile)" ] || continue
-        if [ "$(bigrunning)" -ge "${FETCH_HOLD:-3}" ]; then [ $held -eq 0 ] && echo "Holding the next batch: 3+ big downloads running"; held=1; continue; fi
+        if [ "$(bigrunning)" -ge "${FETCH_HOLD:-3}" ] || { [ "$MAXDL" -gt 0 ] && [ "$(running)" -ge "$MAXDL" ]; }; then [ $held -eq 0 ] && echo "Holding the next batch: 3+ big downloads running"; held=1; continue; fi
         held=0; sleep 3; newbatch; continue
       fi
       [ $(( $(ms) - lastSwitch )) -lt 1000 ] && continue
