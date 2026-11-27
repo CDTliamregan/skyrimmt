@@ -1,0 +1,145 @@
+{
+ "info": {
+  "name": "Ultimate Skyrim - round 2",
+  "author": "SkyrimMT fork",
+  "gameVersion": "1.7.104",
+  "description": "Vanilla-plus Skyrim for SkyrimMT: familiar but fresh. Lore-friendly quests and lands, quality-of-life, stability fixes and light visual polish with Community Shaders (no ENB). File ids checked on Nexus 2026-11-24.",
+  "installInstructions": "Installed by ultimate/ultimate.sh. Plugins are sorted with LOOT afterwards."
+ },
+ "mods": [
+  {
+   "name": "Nether's Follower Framework",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 55653,
+    "fileId": 489439,
+    "version": "2.8.6b",
+    "fileSize": 10021888
+   }
+  },
+  {
+   "name": "Nether's Follower Framework - 2.8.7 Script Fixes",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 55653,
+    "fileId": 816158,
+    "version": "1",
+    "fileSize": 15360
+   }
+  },
+  {
+   "name": "Relationship Dialogue Overhaul",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1187,
+    "fileId": 1171,
+    "version": "Final",
+    "fileSize": 81549312
+   }
+  },
+  {
+   "name": "RDO - CRF and USSEP Patches",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1187,
+    "fileId": 1180,
+    "version": "Final",
+    "fileSize": 4096
+   }
+  },
+  {
+   "name": "Relationship Dialogue Overhaul - Update and MCM",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 44601,
+    "fileId": 810215,
+    "version": "1.1",
+    "fileSize": 4327424
+   }
+  },
+  {
+   "name": "Inigo",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1461,
+    "fileId": 10496,
+    "version": "2.4C",
+    "fileSize": 283999232
+   }
+  },
+  {
+   "name": "Inigo - xEdit cleaned esp",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 89385,
+    "fileId": 378935,
+    "version": "2.4C",
+    "fileSize": 814080
+   }
+  },
+  {
+   "name": "Immersive Armors",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 3479,
+    "fileId": 5924,
+    "version": "8.1",
+    "fileSize": 1093036032
+   }
+  },
+  {
+   "name": "Immersive Weapons",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 16788,
+    "fileId": 52498,
+    "version": "2",
+    "fileSize": 451429376
+   }
+  },
+  {
+   "name": "Realistic Water Two",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 2182,
+    "fileId": 705147,
+    "version": "5.7.3",
+    "fileSize": 92840960
+   }
+  },
+  {
+   "name": "FallrimTools ReSaver (tool, not installed into the game)",
+   "optional": true,
+   "phase": 9,
+   "source": {
+    "type": "nexus",
+    "modId": 5031,
+    "fileId": 424051,
+    "version": "6.0.643",
+    "fileSize": 12162048
+   }
+  }
+ ],
+ "modRules": [],
+ "loadOrder": []
+}

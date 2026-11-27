@@ -1,0 +1,1154 @@
+{
+ "info": {
+  "name": "Ultimate Skyrim",
+  "author": "SkyrimMT fork",
+  "gameVersion": "1.7.104",
+  "description": "Vanilla-plus Skyrim for SkyrimMT: familiar but fresh. Lore-friendly quests and lands, quality-of-life, stability fixes and light visual polish with Community Shaders (no ENB). File ids checked on Nexus 2026-11-24.",
+  "installInstructions": "Installed by ultimate/ultimate.sh. Plugins are sorted with LOOT afterwards."
+ },
+ "mods": [
+  {
+   "name": "SKSE64 (Steam, 1.7.104)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 30379,
+    "fileId": 795992,
+    "version": "2.3.1",
+    "fileSize": 952320
+   }
+  },
+  {
+   "name": "Address Library for SKSE Plugins",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 32444,
+    "fileId": 795954,
+    "version": "13",
+    "fileSize": 6639616
+   }
+  },
+  {
+   "name": "SSE Engine Fixes (1.7.99+)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17230,
+    "fileId": 794484,
+    "version": "7.0.21",
+    "fileSize": 9511936
+   }
+  },
+  {
+   "name": "SSE Engine Fixes - SKSE64 Preloader",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17230,
+    "fileId": 725261,
+    "version": "7",
+    "fileSize": 24576
+   }
+  },
+  {
+   "name": "Crash Logger SSE AE VR",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 59818,
+    "fileId": 825684,
+    "version": "1.27.0",
+    "fileSize": 7499776
+   }
+  },
+  {
+   "name": "SSE Display Tweaks",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 34705,
+    "fileId": 797175,
+    "version": "0.5.25",
+    "fileSize": 186368
+   }
+  },
+  {
+   "name": "Bug Fixes SSE (1.7.99+)",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 33261,
+    "fileId": 795428,
+    "version": "10",
+    "fileSize": 2878464
+   }
+  },
+  {
+   "name": "powerofthree's Tweaks",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 51073,
+    "fileId": 839485,
+    "version": "1.18.0",
+    "fileSize": 8546304
+   }
+  },
+  {
+   "name": "PapyrusUtil AE SE",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 13048,
+    "fileId": 797330,
+    "version": "4.8",
+    "fileSize": 573440
+   }
+  },
+  {
+   "name": "powerofthree's Papyrus Extender",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 22854,
+    "fileId": 800720,
+    "version": "6.5.2",
+    "fileSize": 15268864
+   }
+  },
+  {
+   "name": "Spell Perk Item Distributor",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 36869,
+    "fileId": 795621,
+    "version": "7.3.3",
+    "fileSize": 6390784
+   }
+  },
+  {
+   "name": "Keyword Item Distributor",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 55728,
+    "fileId": 794743,
+    "version": "4.1.0",
+    "fileSize": 10919936
+   }
+  },
+  {
+   "name": "Base Object Swapper",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 60805,
+    "fileId": 794962,
+    "version": "3.5.0",
+    "fileSize": 8960000
+   }
+  },
+  {
+   "name": "SkyUI",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 12604,
+    "fileId": 749043,
+    "version": "6.11",
+    "fileSize": 2693120
+   }
+  },
+  {
+   "name": "MCM Helper",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 53000,
+    "fileId": 795510,
+    "version": "1.6.3",
+    "fileSize": 8186880
+   }
+  },
+  {
+   "name": "UIExtensions",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 17561,
+    "fileId": 55628,
+    "version": "1.2.0",
+    "fileSize": 459776
+   }
+  },
+  {
+   "name": "Unofficial Skyrim Special Edition Patch",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 266,
+    "fileId": 800977,
+    "version": "4.3.9c",
+    "fileSize": 182331392
+   }
+  },
+  {
+   "name": "Unofficial Creation Club Content Patches",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 18975,
+    "fileId": 784827,
+    "version": "8.5",
+    "fileSize": 48132096
+   }
+  },
+  {
+   "name": "JContainers SE",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 16495,
+    "fileId": 818785,
+    "version": "4.3.4",
+    "fileSize": 841728
+   }
+  },
+  {
+   "name": "Fuz Ro D'oh",
+   "optional": false,
+   "phase": 0,
+   "source": {
+    "type": "nexus",
+    "modId": 15109,
+    "fileId": 814513,
+    "version": "2.6",
+    "fileSize": 289792
+   }
+  },
+  {
+   "name": "Cutting Room Floor",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 276,
+    "fileId": 796288,
+    "version": "3.1.26",
+    "fileSize": 5196800
+   }
+  },
+  {
+   "name": "Interesting NPCs 3DNPC",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 29194,
+    "fileId": 308366,
+    "version": "4.5",
+    "fileSize": 2316664832
+   }
+  },
+  {
+   "name": "Interesting NPCs 4.54 Update",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 29194,
+    "fileId": 377786,
+    "version": "4.54",
+    "fileSize": 7835648
+   }
+  },
+  {
+   "name": "Obscure's College of Winterhold",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 20514,
+    "fileId": 134566,
+    "version": "1.6.1",
+    "fileSize": 159945728
+   }
+  },
+  {
+   "name": "Obscure's College of Winterhold - Script Fix",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 62720,
+    "fileId": 260213,
+    "version": "1.0",
+    "fileSize": 1024
+   }
+  },
+  {
+   "name": "Immersive Citizens - AI Overhaul AE",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 173,
+    "fileId": 292849,
+    "version": "0.4.0.2",
+    "fileSize": 1864704
+   }
+  },
+  {
+   "name": "Beyond Skyrim - Assets",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 198585,
+    "fileId": 839041,
+    "version": "2026.11.14",
+    "fileSize": 1923826688
+   }
+  },
+  {
+   "name": "Beyond Skyrim - Bruma",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 10917,
+    "fileId": 839042,
+    "version": "2.0.1",
+    "fileSize": 3616931840
+   }
+  },
+  {
+   "name": "Wyrmstooth",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 45565,
+    "fileId": 670394,
+    "version": "1.20.3",
+    "fileSize": 230179840
+   }
+  },
+  {
+   "name": "Wyrmstooth - Dragonborn Compatibility Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 45565,
+    "fileId": 670699,
+    "version": "1.0.1-dbp",
+    "fileSize": 2048
+   }
+  },
+  {
+   "name": "Wyrmstooth - Hearthfire Compatibility Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 45565,
+    "fileId": 619249,
+    "version": "1.0.0-hfp",
+    "fileSize": 7168
+   }
+  },
+  {
+   "name": "The Forgotten City",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1179,
+    "fileId": 32847,
+    "version": "1.8",
+    "fileSize": 113963008
+   }
+  },
+  {
+   "name": "Clockwork",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4155,
+    "fileId": 7713,
+    "version": "1.0",
+    "fileSize": 304926720
+   }
+  },
+  {
+   "name": "The Gray Cowl of Nocturnal",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4509,
+    "fileId": 18560,
+    "version": "1.3",
+    "fileSize": 202986496
+   }
+  },
+  {
+   "name": "Moon and Star",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 4301,
+    "fileId": 9510,
+    "version": "3.2",
+    "fileSize": 57896960
+   }
+  },
+  {
+   "name": "The Brotherhood of Old",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 15322,
+    "fileId": 830724,
+    "version": "2.0.0",
+    "fileSize": 172824576
+   }
+  },
+  {
+   "name": "Missives",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 17576,
+    "fileId": 98093,
+    "version": "2.03",
+    "fileSize": 146432
+   }
+  },
+  {
+   "name": "Run For Your Lives",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 2272,
+    "fileId": 818396,
+    "version": "4.0.8",
+    "fileSize": 99328
+   }
+  },
+  {
+   "name": "Alternate Perspective - Alternate Start",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 50307,
+    "fileId": 696437,
+    "version": "4.1.0",
+    "fileSize": 4880384
+   }
+  },
+  {
+   "name": "Alternate Perspective - Anniversary Edition Bone Wolf Patch",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 50307,
+    "fileId": 252976,
+    "version": "2.6",
+    "fileSize": 3072
+   }
+  },
+  {
+   "name": "Alternate Perspective - Voiced Addon",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 96865,
+    "fileId": 777036,
+    "version": "1.20",
+    "fileSize": 4197376
+   }
+  },
+  {
+   "name": "JK's Skyrim",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 6289,
+    "fileId": 189705,
+    "version": "1.7",
+    "fileSize": 11382784
+   }
+  },
+  {
+   "name": "Dawn of Skyrim (Director's Cut)",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 9074,
+    "fileId": 144970,
+    "version": "1.5",
+    "fileSize": 51731456
+   }
+  },
+  {
+   "name": "JK's Skyrim - Dawn of Skyrim - Patch",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 16852,
+    "fileId": 188282,
+    "version": "1.6",
+    "fileSize": 10874880
+   }
+  },
+  {
+   "name": "Apocalypse - Magic of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1090,
+    "fileId": 793875,
+    "version": "10.3.0",
+    "fileSize": 54630400
+   }
+  },
+  {
+   "name": "Summermyst - Enchantments of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 6285,
+    "fileId": 796022,
+    "version": "4.2.0",
+    "fileSize": 2455552
+   }
+  },
+  {
+   "name": "Nether's Follower Framework",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 55653,
+    "fileId": 489439,
+    "version": "2.8.6b",
+    "fileSize": 10021888
+   }
+  },
+  {
+   "name": "Nether's Follower Framework - 2.8.7 Script Fixes",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 55653,
+    "fileId": 816158,
+    "version": "1",
+    "fileSize": 15360
+   }
+  },
+  {
+   "name": "Relationship Dialogue Overhaul",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1187,
+    "fileId": 1171,
+    "version": "Final",
+    "fileSize": 81549312
+   }
+  },
+  {
+   "name": "RDO - CRF and USSEP Patches",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1187,
+    "fileId": 1180,
+    "version": "Final",
+    "fileSize": 4096
+   }
+  },
+  {
+   "name": "Relationship Dialogue Overhaul - Update and MCM",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 44601,
+    "fileId": 810215,
+    "version": "1.1",
+    "fileSize": 4327424
+   }
+  },
+  {
+   "name": "Inigo",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 1461,
+    "fileId": 10496,
+    "version": "2.4C",
+    "fileSize": 283999232
+   }
+  },
+  {
+   "name": "Inigo - xEdit cleaned esp",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 89385,
+    "fileId": 378935,
+    "version": "2.4C",
+    "fileSize": 814080
+   }
+  },
+  {
+   "name": "Immersive Armors",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 3479,
+    "fileId": 5924,
+    "version": "8.1",
+    "fileSize": 1093036032
+   }
+  },
+  {
+   "name": "Immersive Weapons",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 16788,
+    "fileId": 52498,
+    "version": "2",
+    "fileSize": 451429376
+   }
+  },
+  {
+   "name": "Thunderchild - Epic Shouts and Immersion",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1460,
+    "fileId": 40320,
+    "version": "4.11SSE",
+    "fileSize": 43566080
+   }
+  },
+  {
+   "name": "Ordinator - Perks of Skyrim",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 1137,
+    "fileId": 675234,
+    "version": "9.35.0",
+    "fileSize": 11496448
+   }
+  },
+  {
+   "name": "Odin - Skyrim Magic Overhaul",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 46000,
+    "fileId": 793864,
+    "version": "3.2.0",
+    "fileSize": 32304128
+   }
+  },
+  {
+   "name": "True Directional Movement",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 51614,
+    "fileId": 798770,
+    "version": "2.3.1",
+    "fileSize": 5210112
+   }
+  },
+  {
+   "name": "Precision",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 72347,
+    "fileId": 798533,
+    "version": "2.0.6",
+    "fileSize": 5812224
+   }
+  },
+  {
+   "name": "Open Animation Replacer",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 92109,
+    "fileId": 798222,
+    "version": "3.2.1",
+    "fileSize": 8288256
+   }
+  },
+  {
+   "name": "Odin - Ordinator Compatibility Patch",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 46000,
+    "fileId": 658698,
+    "version": "3.0.0",
+    "fileSize": 2048
+   }
+  },
+  {
+   "name": "Valhalla Combat (1.7.104 update)",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 191704,
+    "fileId": 806722,
+    "version": "1.1",
+    "fileSize": 10929152
+   }
+  },
+  {
+   "name": "Better Jumping NG",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 18967,
+    "fileId": 808585,
+    "version": "1.9.5",
+    "fileSize": 456704
+   }
+  },
+  {
+   "name": "Mortal Enemies SE",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 4881,
+    "fileId": 11006,
+    "version": "1.05",
+    "fileSize": 12288
+   }
+  },
+  {
+   "name": "Pristine Vanilla Movement",
+   "optional": false,
+   "phase": 2,
+   "source": {
+    "type": "nexus",
+    "modId": 66635,
+    "fileId": 279306,
+    "version": "1.1",
+    "fileSize": 368640
+   }
+  },
+  {
+   "name": "Static Mesh Improvement Mod - SMIM",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 659,
+    "fileId": 59069,
+    "version": "2.08",
+    "fileSize": 1057148928
+   }
+  },
+  {
+   "name": "SMIM - Farming Creation Club Patch",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 659,
+    "fileId": 595607,
+    "version": "1.0",
+    "fileSize": 560128
+   }
+  },
+  {
+   "name": "Skyland AIO",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 34179,
+    "fileId": 443514,
+    "version": "4.32",
+    "fileSize": 7005771776
+   }
+  },
+  {
+   "name": "Embers XD",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 37085,
+    "fileId": 821730,
+    "version": "3.3.0",
+    "fileSize": 706454528
+   }
+  },
+  {
+   "name": "Cathedral Weathers and Seasons",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 24791,
+    "fileId": 398809,
+    "version": "2.23c",
+    "fileSize": 103681024
+   }
+  },
+  {
+   "name": "A Quality World Map",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 5804,
+    "fileId": 13792,
+    "version": "9.0.1",
+    "fileSize": 21683200
+   }
+  },
+  {
+   "name": "Unique Uniques",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 3334,
+    "fileId": 13287,
+    "version": "1.1",
+    "fileSize": 62722048
+   }
+  },
+  {
+   "name": "Book Covers Skyrim (Original)",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 901,
+    "fileId": 40352,
+    "version": "4.2",
+    "fileSize": 486227968
+   }
+  },
+  {
+   "name": "Lanterns of Skyrim II",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 30817,
+    "fileId": 692381,
+    "version": "v4.3",
+    "fileSize": 563517440
+   }
+  },
+  {
+   "name": "Realistic Water Two",
+   "optional": false,
+   "phase": 3,
+   "source": {
+    "type": "nexus",
+    "modId": 2182,
+    "fileId": 705147,
+    "version": "5.7.3",
+    "fileSize": 92840960
+   }
+  },
+  {
+   "name": "Audio Overhaul for Skyrim",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 12466,
+    "fileId": 387525,
+    "version": "4.1.3",
+    "fileSize": 268039168
+   }
+  },
+  {
+   "name": "Better Dialogue Controls",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 1429,
+    "fileId": 11022,
+    "version": "1.2",
+    "fileSize": 24576
+   }
+  },
+  {
+   "name": "Better MessageBox Controls",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 1428,
+    "fileId": 11023,
+    "version": "1.2",
+    "fileSize": 17408
+   }
+  },
+  {
+   "name": "moreHUD",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 12688,
+    "fileId": 819872,
+    "version": "5.4.7.0",
+    "fileSize": 4954112
+   }
+  },
+  {
+   "name": "TrueHUD",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 62775,
+    "fileId": 798218,
+    "version": "1.1.10",
+    "fileSize": 4386816
+   }
+  },
+  {
+   "name": "QuickLoot IE",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 120075,
+    "fileId": 806802,
+    "version": "4.1.3",
+    "fileSize": 1204224
+   }
+  },
+  {
+   "name": "Simple Activate SKSE",
+   "optional": false,
+   "phase": 4,
+   "source": {
+    "type": "nexus",
+    "modId": 56767,
+    "fileId": 799011,
+    "version": "1.5.0",
+    "fileSize": 7383040
+   }
+  },
+  {
+   "name": "Community Shaders",
+   "optional": false,
+   "phase": 5,
+   "source": {
+    "type": "nexus",
+    "modId": 86492,
+    "fileId": 810029,
+    "version": "1.9.1",
+    "fileSize": 45143040
+   }
+  },
+  {
+   "name": "Terrain Shadows - Heightmaps",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "nexus",
+    "modId": 135817,
+    "fileId": 570012,
+    "version": "1.0.0",
+    "fileSize": 14580736
+   }
+  },
+  {
+   "name": "Community Shaders - Screen Space GI",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Screen.Space.GI-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Skylighting",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Skylighting-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Wetness Effects",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Wetness.Effects-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Grass Optimizations",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Grass.Optimizations-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Blending",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Blending-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Helper",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Helper-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Terrain Variation",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Terrain.Variation-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Hair Specular",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Hair.Specular-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Exponential Height Fog",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Exponential.Height.Fog-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Linear Lighting",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Linear.Lighting-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Effects11",
+   "optional": false,
+   "phase": 6,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Effects11-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  },
+  {
+   "name": "Community Shaders - Upscaling",
+   "optional": false,
+   "phase": 6,
+   "enabled": false,
+   "source": {
+    "type": "bundle",
+    "url": "https://github.com/community-shaders/skyrim-community-shaders/releases/download/v1.9.1/Upscaling-2026-09-24T12-32Z.zip",
+    "version": "1.9.1"
+   }
+  }
+ ],
+ "modRules": [],
+ "loadOrder": []
+}
