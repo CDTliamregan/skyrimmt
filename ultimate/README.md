@@ -103,6 +103,17 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [Summermyst - Enchantments of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/6285) 4.2.0
 - [Thunderchild - Epic Shouts and Immersion](https://www.nexusmods.com/skyrimspecialedition/mods/1460) 4.11SSE
 
+**Followers, dialogue, armor and weapons (round 2, Nov 27, 2026)**
+
+- [Nether's Follower Framework](https://www.nexusmods.com/skyrimspecialedition/mods/55653) 2.8.6b (+ 2.8.7 script fixes)
+- [Relationship Dialogue Overhaul](https://www.nexusmods.com/skyrimspecialedition/mods/1187) (+ CRF/USSEP patches, [Update and MCM](https://www.nexusmods.com/skyrimspecialedition/mods/44601) 1.1)
+- [Inigo](https://www.nexusmods.com/skyrimspecialedition/mods/1461) 2.4C (+ [cleaned esp](https://www.nexusmods.com/skyrimspecialedition/mods/89385))
+- [Immersive Armors](https://www.nexusmods.com/skyrimspecialedition/mods/3479) 8.1, [Immersive Weapons](https://www.nexusmods.com/skyrimspecialedition/mods/16788) 2
+- [Realistic Water Two](https://www.nexusmods.com/skyrimspecialedition/mods/2182) 5.7.3
+
+Left out: Lucien (by request), Scrambled Bugs (no 1.7.104 build), Majestic Mountains and Noble Skyrim (their downloads
+failed twice on a free account).
+
 **Gameplay (added Nov 26, 2026)**
 
 - [Ordinator - Perks of Skyrim](https://www.nexusmods.com/skyrimspecialedition/mods/1137) 9.35.0

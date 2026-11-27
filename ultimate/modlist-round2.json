@@ -128,54 +128,6 @@
    }
   },
   {
-   "name": "Majestic Mountains",
-   "optional": false,
-   "phase": 4,
-   "source": {
-    "type": "nexus",
-    "modId": 11052,
-    "fileId": 324452,
-    "version": "4.02",
-    "fileSize": 236733440
-   }
-  },
-  {
-   "name": "Majestic Mountains Patch",
-   "optional": false,
-   "phase": 4,
-   "source": {
-    "type": "nexus",
-    "modId": 11052,
-    "fileId": 324451,
-    "version": "4.02",
-    "fileSize": 97280
-   }
-  },
-  {
-   "name": "Noble Skyrim 2K - Full Pack",
-   "optional": false,
-   "phase": 4,
-   "source": {
-    "type": "nexus",
-    "modId": 21423,
-    "fileId": 73168,
-    "version": "5.5.0",
-    "fileSize": 2548679680
-   }
-  },
-  {
-   "name": "Noble Skyrim - SMIM Patch",
-   "optional": false,
-   "phase": 4,
-   "source": {
-    "type": "nexus",
-    "modId": 21423,
-    "fileId": 73170,
-    "version": "5.5.0",
-    "fileSize": 140311552
-   }
-  },
-  {
    "name": "FallrimTools ReSaver (tool, not installed into the game)",
    "optional": true,
    "phase": 9,
