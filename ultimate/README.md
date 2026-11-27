@@ -75,6 +75,7 @@ Nexus collection. FOMOD installers get their default choices; plugin order comes
 - [Obscure's College of Winterhold](https://www.nexusmods.com/skyrimspecialedition/mods/20514) 1.6.1
 - [Obscure's College of Winterhold - Script Fix](https://www.nexusmods.com/skyrimspecialedition/mods/62720) 1.0
 - [Immersive Citizens - AI Overhaul AE](https://www.nexusmods.com/skyrimspecialedition/mods/173) 0.4.0.2
+- [Beyond Skyrim - Assets](https://www.nexusmods.com/skyrimspecialedition/mods/198585) 2026.11.14 (required by Bruma 2.0)
 - [Beyond Skyrim - Bruma](https://www.nexusmods.com/skyrimspecialedition/mods/10917) 2.0.1
 - [Wyrmstooth](https://www.nexusmods.com/skyrimspecialedition/mods/45565) 1.20.3
 - [Wyrmstooth - Dragonborn Compatibility Patch](https://www.nexusmods.com/skyrimspecialedition/mods/45565) 1.0.1-dbp

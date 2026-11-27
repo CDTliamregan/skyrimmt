@@ -12,6 +12,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"; ROOT="$(cd "$HERE/.." && pwd)"
 GAME="${SKYRIMMT_HOME:-$HOME/Games/skyrim}"
 BIN="$ROOT/build/ultimate-install"
 LOG="$GAME/logs/ultimate-install.log"
+LIST="${ULTIMATE_LIST:-$HERE/modlist.json}"   # another list (e.g. a round of additions before it joins modlist.json)
 cmd="${1:-install}"; shift || true   # remaining args (e.g. --available) go to the installer
 # SkyrimMT.app: $SKYRIMMT_APP, else wherever Spotlight finds it, else /Applications
 APP="${SKYRIMMT_APP:-}"
@@ -39,7 +40,7 @@ if [ ! -x "$BIN" ] || [ -n "$(find "$ROOT/app/ModKit" "$HERE/cli" -newer "$BIN" 
 fi
 
 case "$cmd" in
-  check) exec "$BIN" "$HERE/modlist.json" --dry-run "$@" ;;
+  check) exec "$BIN" "$LIST" --dry-run "$@" ;;
   install)
     # SkyrimMT and the game must be closed while the installer changes the mod folders
     if pgrep -x SkyrimSE.exe >/dev/null || pgrep -f "SkyrimSE.exe" >/dev/null; then echo "Quit Skyrim first."; exit 1; fi
@@ -49,7 +50,7 @@ case "$cmd" in
     [ "${free_gb:-0}" -ge 40 ] || { echo "Need at least 40 GB free on the disk with $GAME (have ${free_gb} GB)."; exit 1; }
     echo "Installing Ultimate Skyrim (log: $LOG)"
     set +e
-    "$BIN" "$HERE/modlist.json" "$@" 2>&1 | tee "$LOG"
+    "$BIN" "$LIST" "$@" 2>&1 | tee "$LOG"
     rc=${PIPESTATUS[0]}
     set -e
     [ $rc -eq 0 ] && open "$APP" 2>/dev/null || true
@@ -78,9 +79,9 @@ case "$cmd" in
     # SkyrimMT's "Install it now?" after each download is answered "Later" and SkyrimMT kept hidden by the poll below
     # (needs Accessibility access for the app running this script), so "Slow download" is the only click
     bounds="${FETCH_BOUNDS:-80,60,1480,1060}"
-    total=$(plutil -extract mods raw -o - "$HERE/modlist.json")
+    total=$(plutil -extract mods raw -o - "$LIST")
     page() { echo "https://www.nexusmods.com/skyrimspecialedition/mods/$1?tab=files&file_id=$2&nmm=1"; }
-    missing_now() { "$BIN" "$HERE/modlist.json" --missing; }
+    missing_now() { "$BIN" "$LIST" --missing; }
     DL="$GAME/downloads"
     TABS="$HERE/cli/fetch-tabs.applescript"
     ms() { perl -MTime::HiRes=time -e 'printf "%d", time*1000'; }
@@ -89,7 +90,7 @@ case "$cmd" in
       [[ "$b" =~ (^|[^0-9])$1([^0-9]|$) ]] && { echo "$p"; return 0; }; done; return 1; }
     growing() { local p; p="$(partof "$1")" && [ $(( $(date +%s) - $(stat -f %m "$p") )) -lt "${2:-60}" ]; }   # written in the last $2 s
     ismissing() { printf '%s\n' "$missing" | grep "^$1 $2 " >/dev/null; }
-    sizes=" $(plutil -convert json -o - "$HERE/modlist.json" | python3 -I -c 'import json,sys
+    sizes=" $(plutil -convert json -o - "$LIST" | python3 -I -c 'import json,sys
 print(" ".join("%d:%d:%d" % (m["source"]["modId"], m["source"]["fileId"], m["source"].get("fileSize", 0)) for m in json.load(sys.stdin)["mods"]))') "
     sizeof() { local e="${sizes#* $1:$2:}"; [ "$e" = "$sizes" ] && echo 0 || echo "${e%% *}"; }
     # Batches of PRELOAD (default 5) pages as tabs of one window at a fixed place: the first is shown; when a click

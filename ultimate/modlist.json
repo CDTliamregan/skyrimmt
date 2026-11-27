@@ -320,6 +320,18 @@
    }
   },
   {
+   "name": "Beyond Skyrim - Assets",
+   "optional": false,
+   "phase": 1,
+   "source": {
+    "type": "nexus",
+    "modId": 198585,
+    "fileId": 839041,
+    "version": "2026.11.14",
+    "fileSize": 1923826688
+   }
+  },
+  {
    "name": "Beyond Skyrim - Bruma",
    "optional": false,
    "phase": 1,
